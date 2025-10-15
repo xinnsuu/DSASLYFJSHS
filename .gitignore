@@ -31,3 +31,10 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Project ###
+*.mv.db
+*.db
+*dev*
+*LYFJSHS*
+data/
