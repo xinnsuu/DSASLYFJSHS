@@ -1,0 +1,42 @@
+keiaa@Latitude-5300:~$ curl -X POST http://localhost:9090/api/sections \
+> -H "Content-Type: application/json" \
+> -d '{
+> "gradeLevel": "ELEVEN",
+> "strand": "STEM",
+> "sectionName": "Kepler"
+> }'
+
+keiaa@Latitude-5300:~$ curl -X POST http://localhost:9090/api/layouts \
+> -H "Content-Type: application/json" \
+> -d '{
+> "name": "Standard Grid",
+> "rows": 10,
+> "columns": 10
+> }' 
+
+keiaa@Latitude-5300:~$ curl -X POST http://localhost:9090/api/students \
+> -H "Content-Type: application/json" \
+> -d '{
+> "firstName": "Tzuhsien",
+> "lastName": "Yang",
+> "studentId": "2025001",
+> "academicStructure": {
+> "id": 1
+> }
+> }'
+
+keiaa@Latitude-5300:~$ curl -X POST http://localhost:9090/api/assignments \
+> -H "Content-Type: application/json" \
+> -d '{
+> "student": {
+> "id": 1
+> },
+> "academicStructure": {
+> "id": 1
+> },
+> "classroomLayout": {
+> "id": 1
+> },
+> "rowNumber": 5,
+> "columnNumber": 3
+> }'

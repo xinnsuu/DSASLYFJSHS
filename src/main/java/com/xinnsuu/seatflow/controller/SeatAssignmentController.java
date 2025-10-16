@@ -17,12 +17,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.xinnsuu.seatflow.model.AcademicStructure;
+import com.xinnsuu.seatflow.model.ClassroomLayout;
 import com.xinnsuu.seatflow.model.SeatAssignment;
-import com.xinnsuu.seatflow.model.Seat;
 import com.xinnsuu.seatflow.model.Student;
 import com.xinnsuu.seatflow.repository.AcademicStructureRepository;
+import com.xinnsuu.seatflow.repository.ClassroomLayoutRepository;
 import com.xinnsuu.seatflow.repository.SeatAssignmentRepository;
-import com.xinnsuu.seatflow.repository.SeatRepository;
 import com.xinnsuu.seatflow.repository.StudentRepository;
 
 @Controller
@@ -31,12 +31,12 @@ public class SeatAssignmentController {
 
 	@Autowired
 	private AcademicStructureRepository academicStructureRepository;
+
+    @Autowired
+    private ClassroomLayoutRepository classroomLayoutRepository;
 	
 	@Autowired
 	private SeatAssignmentRepository seatAssignmentRepository;
-
-	@Autowired
-	private SeatRepository seatRepository;
 
 	@Autowired
 	private StudentRepository studentRepository;
@@ -59,28 +59,34 @@ public class SeatAssignmentController {
     public ResponseEntity<SeatAssignment> createAssignment(
             @Valid @RequestBody SeatAssignment assignment) {
 
-        // 1. Validate Student
         Optional<Student> studentOpt = studentRepository.findById(assignment.getStudent().getId());
         if (studentOpt.isEmpty()) {
-            return new ResponseEntity<SeatAssignment>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<SeatAssignment>(HttpStatus.BAD_REQUEST); // Student not found
         }
 
-        // 2. Validate AcademicStructure
         Optional<AcademicStructure> sectionOpt = academicStructureRepository.findById(assignment.getAcademicStructure().getId());
         if (sectionOpt.isEmpty()) {
-            return new ResponseEntity<SeatAssignment>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<SeatAssignment>(HttpStatus.BAD_REQUEST); // Section not found
         }
 
-        // 3. Validate Seat
-        Optional<Seat> seatOpt = seatRepository.findById(assignment.getSeat().getId());
-        if (seatOpt.isEmpty()) {
-            return new ResponseEntity<SeatAssignment>(HttpStatus.BAD_REQUEST);
+        Long layoutId = assignment.getClassroomLayout().getId();
+        Optional<ClassroomLayout> layoutOpt = classroomLayoutRepository.findById(layoutId);
+        
+        if (layoutOpt.isEmpty()) {
+            return new ResponseEntity<SeatAssignment>(HttpStatus.BAD_REQUEST); // Layout not found
         }
 
-        // Set the full managed entities before saving
+        ClassroomLayout layout = layoutOpt.get();
+        Integer row = assignment.getRowNumber();
+        Integer col = assignment.getColumnNumber();
+
+        if (row > layout.getRows() || col > layout.getColumns()) {
+            return new ResponseEntity<SeatAssignment>(HttpStatus.BAD_REQUEST); 
+        }
+
         assignment.setStudent(studentOpt.get());
         assignment.setAcademicStructure(sectionOpt.get());
-        assignment.setSeat(seatOpt.get());
+        assignment.setClassroomLayout(layout);
         
         SeatAssignment savedAssignment = seatAssignmentRepository.save(assignment);
         return new ResponseEntity<SeatAssignment>(savedAssignment, HttpStatus.CREATED);
@@ -94,30 +100,38 @@ public class SeatAssignmentController {
         Optional<SeatAssignment> existingAssignmentOpt = seatAssignmentRepository.findById(id);
 
         if (existingAssignmentOpt.isPresent()) {
-            SeatAssignment existingAssignment = existingAssignmentOpt.get();
-
-            // 1. Validate Student
             Optional<Student> studentOpt = studentRepository.findById(updatedAssignment.getStudent().getId());
             if (studentOpt.isEmpty()) {
                 return new ResponseEntity<SeatAssignment>(HttpStatus.BAD_REQUEST);
             }
 
-            // 2. Validate AcademicStructure
             Optional<AcademicStructure> sectionOpt = academicStructureRepository.findById(updatedAssignment.getAcademicStructure().getId());
             if (sectionOpt.isEmpty()) {
                 return new ResponseEntity<SeatAssignment>(HttpStatus.BAD_REQUEST);
             }
 
-            // 3. Validate Seat
-            Optional<Seat> seatOpt = seatRepository.findById(updatedAssignment.getSeat().getId());
-            if (seatOpt.isEmpty()) {
+            Long newLayoutId = updatedAssignment.getClassroomLayout().getId();
+            Optional<ClassroomLayout> layoutOpt = classroomLayoutRepository.findById(newLayoutId);
+            
+            if (layoutOpt.isEmpty()) {
+                return new ResponseEntity<SeatAssignment>(HttpStatus.BAD_REQUEST);
+            }
+
+            ClassroomLayout layout = layoutOpt.get();
+            Integer row = updatedAssignment.getRowNumber();
+            Integer col = updatedAssignment.getColumnNumber();
+
+            if (row > layout.getRows() || col > layout.getColumns()) {
                 return new ResponseEntity<SeatAssignment>(HttpStatus.BAD_REQUEST);
             }
             
-            // Update the links
+            SeatAssignment existingAssignment = existingAssignmentOpt.get();
+            
             existingAssignment.setStudent(studentOpt.get());
             existingAssignment.setAcademicStructure(sectionOpt.get());
-            existingAssignment.setSeat(seatOpt.get());
+            existingAssignment.setClassroomLayout(layout);
+            existingAssignment.setRowNumber(row);
+            existingAssignment.setColumnNumber(col);
 
             SeatAssignment savedAssignment = seatAssignmentRepository.save(existingAssignment);
             return new ResponseEntity<SeatAssignment>(savedAssignment, HttpStatus.OK);
