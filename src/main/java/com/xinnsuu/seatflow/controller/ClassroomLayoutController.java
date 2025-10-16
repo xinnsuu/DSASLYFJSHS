@@ -17,35 +17,35 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.xinnsuu.seatflow.model.ClassroomLayout;
-import com.xinnsuu.seatflow.repository.ClassroomLayoutRepository;
+import com.xinnsuu.seatflow.service.ClassroomLayoutService;
 
 @Controller
 @RequestMapping("/api/layouts")
 public class ClassroomLayoutController {
 	
 	@Autowired
-	private ClassroomLayoutRepository classroomLayoutRepository;
+	private ClassroomLayoutService classroomLayoutService;
 
 	@GetMapping
     public ResponseEntity<List<ClassroomLayout>> getAllLayouts() {
-        List<ClassroomLayout> layouts = classroomLayoutRepository.findAll();
-        return new ResponseEntity<List<ClassroomLayout>>(layouts, HttpStatus.OK);
+        List<ClassroomLayout> layouts = classroomLayoutService.getAllLayouts();
+        return new ResponseEntity<>(layouts, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ClassroomLayout> getLayoutById(@PathVariable Long id) {
-        Optional<ClassroomLayout> layout = classroomLayoutRepository.findById(id);
+        Optional<ClassroomLayout> layout = classroomLayoutService.getLayoutById(id);
 
-        return layout.map(l -> new ResponseEntity<ClassroomLayout>(l, HttpStatus.OK))
-                        .orElse(new ResponseEntity<ClassroomLayout>(HttpStatus.NOT_FOUND));
+        return layout.map(l -> new ResponseEntity<>(l, HttpStatus.OK))
+                        .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @PostMapping
     public ResponseEntity<ClassroomLayout> createLayout(
             @Valid @RequestBody ClassroomLayout classroomLayout) {
 
-        ClassroomLayout savedLayout = classroomLayoutRepository.save(classroomLayout);
-        return new ResponseEntity<ClassroomLayout>(savedLayout, HttpStatus.CREATED);
+        ClassroomLayout savedLayout = classroomLayoutService.createLayout(classroomLayout);
+        return new ResponseEntity<>(savedLayout, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
@@ -53,30 +53,22 @@ public class ClassroomLayoutController {
             @PathVariable Long id, 
             @Valid @RequestBody ClassroomLayout updatedLayout) {
 
-        Optional<ClassroomLayout> existingLayoutOpt = classroomLayoutRepository.findById(id);
-
-        if (existingLayoutOpt.isPresent()) {
-            ClassroomLayout existingLayout = existingLayoutOpt.get();
-            
-            existingLayout.setName(updatedLayout.getName());
-            existingLayout.setRows(updatedLayout.getRows());
-            existingLayout.setColumns(updatedLayout.getColumns());
-            
-            ClassroomLayout savedLayout = classroomLayoutRepository.save(existingLayout);
-            return new ResponseEntity<ClassroomLayout>(savedLayout, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<ClassroomLayout>(HttpStatus.NOT_FOUND);
+        try {
+            ClassroomLayout updated = classroomLayoutService.updateLayout(id, updatedLayout);
+            return new ResponseEntity<>(updated, HttpStatus.OK);
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteLayout(@PathVariable Long id) {
         
-        if (classroomLayoutRepository.existsById(id)) {
-            classroomLayoutRepository.deleteById(id);
-            return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
-        } else {
-            return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+        try {
+            classroomLayoutService.deleteLayout(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 }

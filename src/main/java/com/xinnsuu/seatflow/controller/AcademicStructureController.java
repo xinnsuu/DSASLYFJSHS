@@ -17,35 +17,35 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.xinnsuu.seatflow.model.AcademicStructure;
-import com.xinnsuu.seatflow.repository.AcademicStructureRepository;
+import com.xinnsuu.seatflow.service.AcademicStructureService;
 
 @Controller
 @RequestMapping("/api/sections")
 public class AcademicStructureController {
 
     @Autowired
-    private AcademicStructureRepository academicStructureRepository;
+    private AcademicStructureService academicStructureService;
 
     @GetMapping
     public ResponseEntity<List<AcademicStructure>> getAllSections() {
-        List<AcademicStructure> sections = academicStructureRepository.findAll();
-        return new ResponseEntity<List<AcademicStructure>>(sections, HttpStatus.OK);
+        List<AcademicStructure> sections = academicStructureService.getAllSections();
+        return new ResponseEntity<>(sections, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<AcademicStructure> getSectionById(@PathVariable Long id) {
-        Optional<AcademicStructure> structure = academicStructureRepository.findById(id);
+        Optional<AcademicStructure> structure = academicStructureService.getSectionById(id);
 
-        return structure.map(s -> new ResponseEntity<AcademicStructure>(s, HttpStatus.OK))
-                        .orElse(new ResponseEntity<AcademicStructure>(HttpStatus.NOT_FOUND));
+        return structure.map(s -> new ResponseEntity<>(s, HttpStatus.OK))
+                        .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @PostMapping
     public ResponseEntity<AcademicStructure> createAcademicStructure(
             @Valid @RequestBody AcademicStructure academicStructure) {
 
-        AcademicStructure savedStructure = academicStructureRepository.save(academicStructure);
-        return new ResponseEntity<AcademicStructure>(savedStructure, HttpStatus.CREATED);
+        AcademicStructure savedStructure = academicStructureService.createAcademicStructure(academicStructure);
+        return new ResponseEntity<>(savedStructure, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
@@ -53,30 +53,22 @@ public class AcademicStructureController {
             @PathVariable Long id, 
             @Valid @RequestBody AcademicStructure updatedStructure) {
 
-        Optional<AcademicStructure> existingStructureOpt = academicStructureRepository.findById(id);
-
-        if (existingStructureOpt.isPresent()) {
-            AcademicStructure existingStructure = existingStructureOpt.get();
-            
-            existingStructure.setGradeLevel(updatedStructure.getGradeLevel());
-            existingStructure.setStrand(updatedStructure.getStrand());
-            existingStructure.setSectionName(updatedStructure.getSectionName());
-            
-            AcademicStructure savedStructure = academicStructureRepository.save(existingStructure);
-            return new ResponseEntity<AcademicStructure>(savedStructure, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<AcademicStructure>(HttpStatus.NOT_FOUND);
+        try {
+            AcademicStructure updated = academicStructureService.updateAcademicStructure(id, updatedStructure);
+            return new ResponseEntity<>(updated, HttpStatus.OK);
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteAcademicStructure(@PathVariable Long id) {
         
-        if (academicStructureRepository.existsById(id)) {
-            academicStructureRepository.deleteById(id);
-            return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
-        } else {
-            return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+        try {
+            academicStructureService.deleteAcademicStructure(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 }

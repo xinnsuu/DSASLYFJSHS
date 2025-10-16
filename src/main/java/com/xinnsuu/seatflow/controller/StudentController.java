@@ -17,51 +17,39 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.xinnsuu.seatflow.model.Student;
-import com.xinnsuu.seatflow.model.AcademicStructure;
-import com.xinnsuu.seatflow.repository.StudentRepository;
-import com.xinnsuu.seatflow.repository.AcademicStructureRepository;
+import com.xinnsuu.seatflow.service.StudentService;
 
 @Controller
 @RequestMapping("/api/students")
 public class StudentController {
 	
 	@Autowired
-	private StudentRepository studentRepository;
-
-	@Autowired
-	private AcademicStructureRepository academicStructureRepository;
+	private StudentService studentService;
 
 	@GetMapping
     public ResponseEntity<List<Student>> getAllStudents() {
-        List<Student> students = studentRepository.findAll();
-        return new ResponseEntity<List<Student>>(students, HttpStatus.OK);
+        List<Student> students = studentService.getAllStudents();
+        return new ResponseEntity<>(students, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Student> getStudentById(@PathVariable Long id) {
-        Optional<Student> student = studentRepository.findById(id);
+        Optional<Student> student = studentService.getStudentById(id);
 
-        return student.map(s -> new ResponseEntity<Student>(s, HttpStatus.OK))
-                      .orElse(new ResponseEntity<Student>(HttpStatus.NOT_FOUND));
+        return student.map(s -> new ResponseEntity<>(s, HttpStatus.OK))
+                      .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @PostMapping
     public ResponseEntity<Student> createStudent(
             @Valid @RequestBody Student student) {
 
-        // When creating a student, we only receive the AcademicStructure object with its ID set.
-        // We must fetch the full, managed AcademicStructure entity before saving the student.
-        Long sectionId = student.getAcademicStructure().getId();
-        Optional<AcademicStructure> sectionOpt = academicStructureRepository.findById(sectionId);
-
-        if (sectionOpt.isEmpty()) {
-            // Cannot create student if the specified section ID does not exist.
-            return new ResponseEntity<Student>(HttpStatus.BAD_REQUEST);
+        try {
+            Student savedStudent = studentService.createStudent(student);
+            return new ResponseEntity<>(savedStudent, HttpStatus.CREATED);
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-
-        student.setAcademicStructure(sectionOpt.get());
-        Student savedStudent = studentRepository.save(student);
-        return new ResponseEntity<Student>(savedStudent, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
@@ -69,38 +57,26 @@ public class StudentController {
             @PathVariable Long id, 
             @Valid @RequestBody Student updatedStudent) {
 
-        Optional<Student> existingStudentOpt = studentRepository.findById(id);
-
-        if (existingStudentOpt.isPresent()) {
-            Student existingStudent = existingStudentOpt.get();
-
-            Long newSectionId = updatedStudent.getAcademicStructure().getId();
-            Optional<AcademicStructure> newSectionOpt = academicStructureRepository.findById(newSectionId);
-            
-            if (newSectionOpt.isEmpty()) {
-                return new ResponseEntity<Student>(HttpStatus.BAD_REQUEST);
+        try {
+            Student updated = studentService.updateStudent(id, updatedStudent);
+            return new ResponseEntity<>(updated, HttpStatus.OK);
+        } catch (RuntimeException e) {
+            if (e.getMessage().contains("not found")) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            } else {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
-
-            existingStudent.setFirstName(updatedStudent.getFirstName());
-            existingStudent.setLastName(updatedStudent.getLastName());
-            existingStudent.setStudentId(updatedStudent.getStudentId());
-            existingStudent.setAcademicStructure(newSectionOpt.get()); // Update the link
-
-            Student savedStudent = studentRepository.save(existingStudent);
-            return new ResponseEntity<Student>(savedStudent, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<Student>(HttpStatus.NOT_FOUND);
         }
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteStudent(@PathVariable Long id) {
         
-        if (studentRepository.existsById(id)) {
-            studentRepository.deleteById(id);
-            return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
-        } else {
-            return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+        try {
+            studentService.deleteStudent(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 }
