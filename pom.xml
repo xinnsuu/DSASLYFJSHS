@@ -11,8 +11,8 @@
 	<groupId>com.xinnsuu</groupId>
 	<artifactId>seatflow</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>demo</name>
-	<description>Demo project for Spring Boot</description>
+	<name>seatflow</name>
+	<description>A simple web-app for seating assignment, in aid of classroom management.</description>
 	<url/>
 	<licenses>
 		<license/>
