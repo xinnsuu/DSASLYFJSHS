@@ -2,6 +2,7 @@ package com.xinnsuu.seatflow.model;
 
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -35,6 +36,7 @@ public class ClassroomLayout {
 	@Min(value = 1, message = "Layout must have at least 1 column")
 	private int columns;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "classroomLayout")
 	private Set<Seat> seats;
 }
