@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Academic Structure Form</title>
+</head>
+<body>
+    <h1 th:text="${structure.id == null} ? 'Add Academic Structure' : 'Edit Academic Structure'"></h1>
+    <form th:action="${structure.id == null} ? @{/sections/new} : @{/sections/edit/{id}(id=${structure.id})}" th:object="${structure}" method="post">
+        <input type="hidden" th:field="*{id}"/>
+        <div>
+            <label>Grade Level:</label>
+            <select th:field="*{gradeLevel}">
+                <option th:each="level : ${T(com.xinnsuu.seatflow.model.enums.GradeLevel).values()}" 
+                        th:value="${level}" th:text="${level.displayValue}"></option>
+            </select>
+        </div>
+        <div>
+            <label>Strand:</label>
+            <select th:field="*{strand}">
+                <option th:each="s : ${T(com.xinnsuu.seatflow.model.enums.Strand).values()}" 
+                        th:value="${s}" th:text="${s}"></option>
+            </select>
+        </div>
+        <div>
+            <label>Section Name:</label>
+            <input type="text" th:field="*{sectionName}"/>
+        </div>
+        <button type="submit">Save</button>
+    </form>
+</body>
+</html>
