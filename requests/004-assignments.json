@@ -1,0 +1,13 @@
+{
+	"student": {
+		"id": 1
+	},
+	"academicStructure": {
+		"id": 1
+	},
+	"classroomLayout": {
+		"id": 1
+	},
+	"rowNumber": 5,
+	"columnNumber": 3
+}
