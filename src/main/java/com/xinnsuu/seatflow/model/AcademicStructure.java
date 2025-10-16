@@ -44,6 +44,7 @@ public class AcademicStructure {
 	@OneToMany(mappedBy = "academicStructure")
 	private Set<Student> students;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "academicStructure")
 	private Set<SeatAssignment> seatAssignments;
 }
