@@ -2,6 +2,7 @@ package com.xinnsuu.seatflow.model;
 
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -39,6 +40,7 @@ public class AcademicStructure {
 	@Size(max = 50)
 	private String sectionName;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "academicStructure")
 	private Set<Student> students;
 
