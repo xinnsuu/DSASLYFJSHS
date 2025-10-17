@@ -21,21 +21,21 @@ import com.xinnsuu.seatflow.model.SeatAssignment;
 import com.xinnsuu.seatflow.service.SeatAssignmentService;
 
 @RestController
-@RequestMapping("/api/assignments")
+@RequestMapping("/api/sections/{sectionId}/assignments")
 public class SeatAssignmentController {
 
 	@Autowired
 	private SeatAssignmentService seatAssignmentService;
 
 	@GetMapping
-    public ResponseEntity<List<SeatAssignment>> getAllAssignments() {
-        List<SeatAssignment> assignments = seatAssignmentService.getAllAssignments();
+    public ResponseEntity<List<SeatAssignment>> getAllAssignments(@PathVariable Long sectionId) {
+        List<SeatAssignment> assignments = seatAssignmentService.getAssignmentsBySectionId(sectionId);
         return new ResponseEntity<>(assignments, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<SeatAssignment> getAssignmentById(@PathVariable Long id) {
-        Optional<SeatAssignment> assignment = seatAssignmentService.getAssignmentById(id);
+    public ResponseEntity<SeatAssignment> getAssignmentById(@PathVariable Long sectionId, @PathVariable Long id) {
+        Optional<SeatAssignment> assignment = seatAssignmentService.getAssignmentByIdAndSectionId(id, sectionId);
 
         return assignment.map(a -> new ResponseEntity<>(a, HttpStatus.OK))
                       .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
@@ -43,10 +43,11 @@ public class SeatAssignmentController {
 
     @PostMapping
     public ResponseEntity<SeatAssignment> createAssignment(
+            @PathVariable Long sectionId,
             @Valid @RequestBody SeatAssignment assignment) {
 
         try {
-            SeatAssignment savedAssignment = seatAssignmentService.createAssignment(assignment);
+            SeatAssignment savedAssignment = seatAssignmentService.createAssignmentForSection(sectionId, assignment);
             return new ResponseEntity<>(savedAssignment, HttpStatus.CREATED);
         } catch (RuntimeException e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -55,11 +56,12 @@ public class SeatAssignmentController {
 
     @PutMapping("/{id}")
     public ResponseEntity<SeatAssignment> updateAssignment(
+            @PathVariable Long sectionId,
             @PathVariable Long id, 
             @Valid @RequestBody SeatAssignment updatedAssignment) {
 
         try {
-            SeatAssignment updated = seatAssignmentService.updateAssignment(id, updatedAssignment);
+            SeatAssignment updated = seatAssignmentService.updateAssignmentForSection(sectionId, id, updatedAssignment);
             return new ResponseEntity<>(updated, HttpStatus.OK);
         } catch (RuntimeException e) {
             if (e.getMessage().contains("not found")) {
@@ -71,10 +73,10 @@ public class SeatAssignmentController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteAssignment(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteAssignment(@PathVariable Long sectionId, @PathVariable Long id) {
         
         try {
-            seatAssignmentService.deleteAssignment(id);
+            seatAssignmentService.deleteAssignmentForSection(sectionId, id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (RuntimeException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

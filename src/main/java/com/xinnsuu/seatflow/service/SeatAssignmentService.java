@@ -6,9 +6,9 @@ import java.util.Optional;
 import com.xinnsuu.seatflow.model.SeatAssignment;
 
 public interface SeatAssignmentService {
-    List<SeatAssignment> getAllAssignments();
-    Optional<SeatAssignment> getAssignmentById(Long id);
-    SeatAssignment createAssignment(SeatAssignment assignment);
-    SeatAssignment updateAssignment(Long id, SeatAssignment updatedAssignment);
-    void deleteAssignment(Long id);
+    List<SeatAssignment> getAssignmentsBySectionId(Long sectionId);
+    Optional<SeatAssignment> getAssignmentByIdAndSectionId(Long id, Long sectionId);
+    SeatAssignment createAssignmentForSection(Long sectionId, SeatAssignment assignment);
+    SeatAssignment updateAssignmentForSection(Long sectionId, Long id, SeatAssignment updatedAssignment);
+    void deleteAssignmentForSection(Long sectionId, Long id);
 }
