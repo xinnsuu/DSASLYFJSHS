@@ -33,7 +33,7 @@ public class StudentController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Student> getStudentById(@PathVariable Long id) {
+    public ResponseEntity<Student> getStudentById(@PathVariable String id) {
         Optional<Student> student = studentService.getStudentById(id);
 
         return student.map(s -> new ResponseEntity<>(s, HttpStatus.OK))
@@ -54,7 +54,7 @@ public class StudentController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Student> updateStudent(
-            @PathVariable Long id, 
+            @PathVariable String id, 
             @Valid @RequestBody Student updatedStudent) {
 
         try {
@@ -70,7 +70,7 @@ public class StudentController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteStudent(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteStudent(@PathVariable String id) {
         
         try {
             studentService.deleteStudent(id);

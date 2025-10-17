@@ -7,8 +7,8 @@ import com.xinnsuu.seatflow.model.Student;
 
 public interface StudentService {
     List<Student> getAllStudents();
-    Optional<Student> getStudentById(Long id);
+    Optional<Student> getStudentById(String id);
     Student createStudent(Student student);
-    Student updateStudent(Long id, Student updatedStudent);
-    void deleteStudent(Long id);
+    Student updateStudent(String id, Student updatedStudent);
+    void deleteStudent(String id);
 }

@@ -26,7 +26,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Optional<Student> getStudentById(Long id) {
+    public Optional<Student> getStudentById(String id) {
         return studentRepository.findById(id);
     }
 
@@ -45,7 +45,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Student updateStudent(Long id, Student updatedStudent) {
+    public Student updateStudent(String id, Student updatedStudent) {
         Optional<Student> existingStudentOpt = studentRepository.findById(id);
 
         if (existingStudentOpt.isPresent()) {
@@ -70,7 +70,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public void deleteStudent(Long id) {
+    public void deleteStudent(String id) {
         if (!studentRepository.existsById(id)) {
             throw new RuntimeException("Student with ID " + id + " not found");
         }

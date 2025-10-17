@@ -22,8 +22,9 @@ import lombok.Data;
 public class Student {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	@NotBlank(message = "Student ID is required")
+	@Size(max = 12)
+	private String studentId;
 
 	@NotBlank(message = "First name is required")
 	@Size(max = 150)
@@ -38,10 +39,6 @@ public class Student {
 
 	@Size(max = 10)
 	private String suffix;
-
-	@NotBlank(message = "Student ID is required")
-	@Size(max = 20)
-	private String studentId;
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "student")

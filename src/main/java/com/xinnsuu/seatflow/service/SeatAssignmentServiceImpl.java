@@ -42,9 +42,9 @@ public class SeatAssignmentServiceImpl implements SeatAssignmentService {
 
     @Override
     public SeatAssignment createAssignment(SeatAssignment assignment) {
-        Optional<Student> studentOpt = studentRepository.findById(assignment.getStudent().getId());
+        Optional<Student> studentOpt = studentRepository.findById(assignment.getStudent().getStudentId());
         if (studentOpt.isEmpty()) {
-            throw new RuntimeException("Student with ID " + assignment.getStudent().getId() + " not found");
+            throw new RuntimeException("Student with ID " + assignment.getStudent().getStudentId() + " not found");
         }
 
         Optional<AcademicStructure> sectionOpt = academicStructureRepository.findById(assignment.getAcademicStructure().getId());
@@ -79,9 +79,9 @@ public class SeatAssignmentServiceImpl implements SeatAssignmentService {
         Optional<SeatAssignment> existingAssignmentOpt = seatAssignmentRepository.findById(id);
 
         if (existingAssignmentOpt.isPresent()) {
-            Optional<Student> studentOpt = studentRepository.findById(updatedAssignment.getStudent().getId());
+            Optional<Student> studentOpt = studentRepository.findById(updatedAssignment.getStudent().getStudentId());
             if (studentOpt.isEmpty()) {
-                throw new RuntimeException("Student with ID " + updatedAssignment.getStudent().getId() + " not found");
+                throw new RuntimeException("Student with ID " + updatedAssignment.getStudent().getStudentId() + " not found");
             }
 
             Optional<AcademicStructure> sectionOpt = academicStructureRepository.findById(updatedAssignment.getAcademicStructure().getId());
