@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Academic Structures</title>
+</head>
+<body>
+    <h1>Academic Structures</h1>
+    <a href="/sections/new">Add Academic Structure</a>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Grade Level</th>
+                <th>Strand</th>
+                <th>Section Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="structure : ${structures}">
+                <td th:text="${structure.id}"></td>
+                <td th:text="${structure.gradeLevel}"></td>
+                <td th:text="${structure.strand}"></td>
+                <td th:text="${structure.sectionName}"></td>
+                <td>
+                    <a th:href="@{/sections/edit/{id}(id=${structure.id})}">Edit</a>
+                    <a th:href="@{/sections/delete/{id}(id=${structure.id})}">Delete</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
