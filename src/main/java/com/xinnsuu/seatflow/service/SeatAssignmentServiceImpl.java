@@ -59,6 +59,10 @@ public class SeatAssignmentServiceImpl implements SeatAssignmentService {
             throw new RuntimeException("Classroom Layout with ID " + layoutId + " not found");
         }
 
+        if (seatAssignmentRepository.existsByClassroomLayoutAndRowNumberAndColumnNumber(layoutOpt.get(), assignment.getRowNumber(), assignment.getColumnNumber())) {
+            throw new RuntimeException("Seat is already occupied in this classroom layout");
+        }
+
         ClassroomLayout layout = layoutOpt.get();
         Integer row = assignment.getRowNumber();
         Integer col = assignment.getColumnNumber();
@@ -94,6 +98,10 @@ public class SeatAssignmentServiceImpl implements SeatAssignmentService {
             
             if (layoutOpt.isEmpty()) {
                 throw new RuntimeException("Classroom Layout with ID " + newLayoutId + " not found");
+            }
+
+            if (seatAssignmentRepository.existsByClassroomLayoutAndRowNumberAndColumnNumberAndIdNot(layoutOpt.get(), updatedAssignment.getRowNumber(), updatedAssignment.getColumnNumber(), id)) {
+                throw new RuntimeException("Seat is already occupied in this classroom layout");
             }
 
             ClassroomLayout layout = layoutOpt.get();

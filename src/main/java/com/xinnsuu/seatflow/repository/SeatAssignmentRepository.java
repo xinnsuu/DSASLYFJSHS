@@ -5,7 +5,10 @@ import org.springframework.stereotype.Repository;
 
 import com.xinnsuu.seatflow.model.SeatAssignment;
 
+import com.xinnsuu.seatflow.model.ClassroomLayout;
+
 @Repository
 public interface SeatAssignmentRepository extends JpaRepository<SeatAssignment, Long> {
-    // Spring Data JPA automatically provides basic CRUD methods
+    boolean existsByClassroomLayoutAndRowNumberAndColumnNumber(ClassroomLayout classroomLayout, int rowNumber, int columnNumber);
+    boolean existsByClassroomLayoutAndRowNumberAndColumnNumberAndIdNot(ClassroomLayout classroomLayout, int rowNumber, int columnNumber, Long id);
 }

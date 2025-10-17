@@ -11,8 +11,12 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Min;
 import lombok.Data;
 
+import jakarta.persistence.UniqueConstraint;
+
 @Entity
-@Table(name = "seat_assignments")
+@Table(name = "seat_assignments", uniqueConstraints = {
+    @UniqueConstraint(columnNames = {"layout_id", "rowNumber", "columnNumber"})
+})
 @Data
 public class SeatAssignment {
 
