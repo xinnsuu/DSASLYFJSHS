@@ -13,7 +13,7 @@
 
         <div>
             <label>Student ID:</label>
-            <input type="text" th:field="*{studentId}" placeholder="Enter student ID..." required />
+            <input type="text" th:field="*{studentId}" placeholder="Enter student ID..." required th:readonly="${student.studentId != null}" />
         </div>
 
         <div>
