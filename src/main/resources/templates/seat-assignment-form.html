@@ -31,8 +31,8 @@
 
         <div>
             <label for="student">Student:</label>
-            <select id="student" th:field="*{student}">
-                <option value="">-- Select a Student --</option>
+            <select id="student" th:field="*{student}" required>
+                <option value="" disabled selected>-- Select a Student --</option>
                 <option th:each="student : ${students}"
                         th:value="${student.studentId}"
                         th:text="${student.firstName + ' ' + student.lastName}"></option>
@@ -43,8 +43,8 @@
 
         <div>
             <label for="layout">Classroom Layout:</label>
-            <select id="layout" th:field="*{classroomLayout}">
-                <option value="">-- Select a Layout --</option>
+            <select id="layout" th:field="*{classroomLayout}" required>
+                <option value="" disabled selected>-- Select a Layout --</option>
                 <option th:each="layout : ${layouts}"
                         th:value="${layout.id}"
                         th:text="${layout.name}"></option>
@@ -54,13 +54,13 @@
 
         <div>
             <label for="rowNumber">Row Number:</label>
-            <input id="rowNumber" type="number" th:field="*{rowNumber}" placeholder="Enter row number..." required min="1" />
+            <input id="rowNumber" type="number" th:field="*{rowNumber}" placeholder="Enter row number..." required min="1" th:value="${assignment.rowNumber ?: 1}" />
             <div th:if="${#fields.hasErrors('rowNumber')}" th:errors="*{rowNumber}" class="error-message"></div>
         </div>
 
         <div>
             <label for="columnNumber">Column Number:</label>
-            <input id="columnNumber" type="number" th:field="*{columnNumber}" placeholder="Enter column number..." required min="1" />
+            <input id="columnNumber" type="number" th:field="*{columnNumber}" placeholder="Enter column number..." required min="1" th:value="${assignment.columnNumber ?: 1}" />
             <div th:if="${#fields.hasErrors('columnNumber')}" th:errors="*{columnNumber}" class="error-message"></div>
         </div>
 
