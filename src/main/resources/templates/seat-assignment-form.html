@@ -32,12 +32,12 @@
 
         <div>
             <label>Row Number:</label>
-            <input type="number" th:field="*{rowNumber}" placeholder="Enter row number..." required />
+            <input type="number" th:field="*{rowNumber}" placeholder="Enter row number..." required min="1" />
         </div>
 
         <div>
             <label>Column Number:</label>
-            <input type="number" th:field="*{columnNumber}" placeholder="Enter column number..." required />
+            <input type="number" th:field="*{columnNumber}" placeholder="Enter column number..." required min="1" />
         </div>
 
         <div class="form-actions">
