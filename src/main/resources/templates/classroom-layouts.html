@@ -15,19 +15,14 @@
                 <th>Name</th>
                 <th>Rows</th>
                 <th>Columns</th>
-                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
-            <tr th:each="layout : ${layouts}">
+            <tr th:each="layout : ${layouts}" th:onclick="'window.location.href=\'' + @{/layouts/edit/{id}(id=${layout.id})} + '\''">
                 <td th:text="${layout.id}"></td>
                 <td th:text="${layout.name}"></td>
                 <td th:text="${layout.rows}"></td>
                 <td th:text="${layout.columns}"></td>
-                <td class="actions">
-                    <a th:href="@{/layouts/edit/{id}(id=${layout.id})}">Edit</a>
-                    <a th:href="@{/layouts/delete/{id}(id=${layout.id})}">Delete</a>
-                </td>
             </tr>
         </tbody>
     </table>

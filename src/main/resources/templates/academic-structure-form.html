@@ -33,7 +33,10 @@
             <input type="text" th:field="*{sectionName}" placeholder="Enter or search section name..." required />
         </div>
 
-        <button type="submit">Save</button>
+        <div class="form-actions">
+            <button type="submit" class="button save-button">Save</button>
+            <a th:if="${structure.id != null}" th:href="@{/sections/delete/{id}(id=${structure.id})}" class="button delete-button">Delete</a>
+        </div>
     </form>
 </body>
 </html>

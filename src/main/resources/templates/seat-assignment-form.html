@@ -40,7 +40,10 @@
             <input type="number" th:field="*{columnNumber}" placeholder="Enter column number..." required />
         </div>
 
-        <button type="submit">Save</button>
+        <div class="form-actions">
+            <button type="submit" class="button save-button">Save</button>
+            <a th:if="${assignment.id != null}" th:href="@{/assignments/delete/{id}(id=${assignment.id},sectionId=${sectionId})}" class="button delete-button">Delete</a>
+        </div>
     </form>
 </body>
 </html>

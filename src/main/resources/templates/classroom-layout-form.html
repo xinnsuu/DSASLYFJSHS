@@ -27,7 +27,10 @@
             <input type="number" th:field="*{columns}" placeholder="Enter number of columns..." required />
         </div>
 
-        <button type="submit">Save</button>
+        <div class="form-actions">
+             <button type="submit" class="button save-button">Save</button>
+             <a th:if="${layout.id != null}" th:href="@{/layouts/delete/{id}(id=${layout.id})}" class="button delete-button">Delete</a>
+        </div>
     </form>
 </body>
 </html>

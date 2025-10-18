@@ -45,7 +45,10 @@
             </select>
         </div>
 
-        <button type="submit">Save</button>
+        <div class="form-actions">
+            <button type="submit" class="button save-button">Save</button>
+            <a th:if="${student.studentId != null}" th:href="@{/students/delete/{id}(id=${student.studentId})}" class="button delete-button">Delete</a>
+        </div>
     </form>
 </body>
 </html>

@@ -31,20 +31,15 @@
                 <th>Layout</th>
                 <th>Row</th>
                 <th>Column</th>
-                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
-            <tr th:each="assignment : ${assignments}">
+            <tr th:each="assignment : ${assignments}" th:onclick="'window.location.href=\'' + @{/assignments/edit/{id}(id=${assignment.id},sectionId=${param.sectionId})} + '\''">
                 <td th:text="${assignment.id}"></td>
                 <td th:text="${assignment.student.firstName + ' ' + assignment.student.lastName}"></td>
                 <td th:text="${assignment.classroomLayout.name}"></td>
                 <td th:text="${assignment.rowNumber}"></td>
                 <td th:text="${assignment.columnNumber}"></td>
-                <td class="actions">
-                    <a th:href="@{/assignments/edit/{id}(id=${assignment.id},sectionId=${param.sectionId})}">Edit</a>
-                    <a th:href="@{/assignments/delete/{id}(id=${assignment.id},sectionId=${param.sectionId})}">Delete</a>
-                </td>
             </tr>
         </tbody>
     </table>

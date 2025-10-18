@@ -66,8 +66,8 @@ select {
 }
 
 option {
-    background-color: #222; /* solid dark background */
-    color: #fff; /* white readable text */
+    background-color: #222;
+    color: #fff;
 }
 
 option:hover, option:focus {
@@ -75,32 +75,50 @@ option:hover, option:focus {
     color: #000;
 }
 
-/* Submit button styles */
-button {
-    width: 100%;
+/* Container for form buttons */
+.form-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+/* General button styles */
+.button {
+    flex-grow: 1;
+    text-align: center;
     padding: 18px;
-    background: linear-gradient(45deg, #00e676, #00c853);
-    color: #000;
     border: none;
     border-radius: 30px;
     font-size: 18px;
     font-weight: 700;
     cursor: pointer;
     transition: all 0.3s ease;
+    text-decoration: none;
+    display: block;
+}
+
+.save-button {
+    background: linear-gradient(45deg, #00e676, #00c853);
+    color: #000;
     box-shadow: 0 0 20px rgba(0, 230, 118, 0.5);
-    animation: pulse 2s infinite;
 }
 
-@keyframes pulse {
-    0% { box-shadow: 0 0 20px rgba(0, 230, 118, 0.5); }
-    50% { box-shadow: 0 0 30px rgba(0, 230, 118, 0.8); }
-    100% { box-shadow: 0 0 20px rgba(0, 230, 118, 0.5); }
-}
-
-button:hover {
+.save-button:hover {
     transform: scale(1.05);
     box-shadow: 0 0 40px rgba(0, 230, 118, 1);
 }
+
+.delete-button {
+    background: linear-gradient(45deg, #ff3d00, #d32f2f);
+    color: white;
+    box-shadow: 0 0 20px rgba(255, 61, 0, 0.5);
+}
+
+.delete-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 40px rgba(255, 61, 0, 1);
+}
+
 
 /* Responsive adjustments */
 @media (max-width: 768px) {

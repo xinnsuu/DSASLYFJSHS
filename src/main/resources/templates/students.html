@@ -17,21 +17,16 @@
                 <th>Last Name</th>
                 <th>Suffix</th>
                 <th>Section</th>
-                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
-            <tr th:each="student : ${students}">
+            <tr th:each="student : ${students}" th:onclick="'window.location.href=\'' + @{/students/edit/{id}(id=${student.studentId})} + '\''">
                 <td th:text="${student.studentId}"></td>
                 <td th:text="${student.firstName}"></td>
                 <td th:text="${student.middleName}"></td>
                 <td th:text="${student.lastName}"></td>
                 <td th:text="${student.suffix}"></td>
                 <td th:text="${student.academicStructure.sectionName}"></td>
-                <td class="actions">
-                    <a th:href="@{/students/edit/{id}(id=${student.studentId})}">Edit</a>
-                    <a th:href="@{/students/delete/{id}(id=${student.studentId})}">Delete</a>
-                </td>
             </tr>
         </tbody>
     </table>
