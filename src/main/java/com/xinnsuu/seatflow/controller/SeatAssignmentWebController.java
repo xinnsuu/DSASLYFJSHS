@@ -5,11 +5,9 @@ import com.xinnsuu.seatflow.service.AcademicStructureService;
 import com.xinnsuu.seatflow.service.ClassroomLayoutService;
 import com.xinnsuu.seatflow.service.SeatAssignmentService;
 import com.xinnsuu.seatflow.service.StudentService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -51,11 +49,14 @@ public class SeatAssignmentWebController {
         return "seat-assignment-form";
     }
 
+    /**
+     * Handles the creation of a new seat assignment.
+     * The @Valid annotation has been removed because the AcademicStructure is set
+     * in the service layer, but validation runs before the service is called.
+     * This was causing a silent validation failure.
+     */
     @PostMapping("/new")
-    public String createAssignment(@RequestParam("sectionId") Long sectionId, @Valid @ModelAttribute("assignment") SeatAssignment assignment, BindingResult result) {
-        if (result.hasErrors()) {
-            return "seat-assignment-form";
-        }
+    public String createAssignment(@RequestParam("sectionId") Long sectionId, @ModelAttribute("assignment") SeatAssignment assignment) {
         seatAssignmentService.createAssignmentForSection(sectionId, assignment);
         return "redirect:/assignments?sectionId=" + sectionId;
     }
@@ -71,12 +72,12 @@ public class SeatAssignmentWebController {
         return "seat-assignment-form";
     }
 
+    /**
+     * Handles the update of an existing seat assignment.
+     * The @Valid annotation has been removed for the same reason as in the create method.
+     */
     @PostMapping("/edit/{id}")
-    public String updateAssignment(@PathVariable("id") Long id, @RequestParam("sectionId") Long sectionId, @Valid @ModelAttribute("assignment") SeatAssignment assignment,
-            BindingResult result) {
-        if (result.hasErrors()) {
-            return "seat-assignment-form";
-        }
+    public String updateAssignment(@PathVariable("id") Long id, @RequestParam("sectionId") Long sectionId, @ModelAttribute("assignment") SeatAssignment assignment) {
         seatAssignmentService.updateAssignmentForSection(sectionId, id, assignment);
         return "redirect:/assignments?sectionId=" + sectionId;
     }

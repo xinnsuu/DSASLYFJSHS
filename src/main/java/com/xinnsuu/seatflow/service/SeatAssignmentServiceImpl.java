@@ -83,8 +83,8 @@ public class SeatAssignmentServiceImpl implements SeatAssignmentService {
             throw new RuntimeException("Seat assignment position exceeds classroom layout dimensions");
         }
 
-        assignment.setStudent(studentOpt.get());
         assignment.setAcademicStructure(sectionOpt.get());
+        assignment.setStudent(studentOpt.get());
         assignment.setClassroomLayout(layout);
         
         return seatAssignmentRepository.save(assignment);
@@ -132,8 +132,8 @@ public class SeatAssignmentServiceImpl implements SeatAssignmentService {
         
         SeatAssignment existingAssignment = existingAssignmentOpt.get();
         
-        existingAssignment.setStudent(studentOpt.get());
         existingAssignment.setAcademicStructure(sectionOpt.get());
+        existingAssignment.setStudent(studentOpt.get());
         existingAssignment.setClassroomLayout(layout);
         existingAssignment.setRowNumber(row);
         existingAssignment.setColumnNumber(col);
