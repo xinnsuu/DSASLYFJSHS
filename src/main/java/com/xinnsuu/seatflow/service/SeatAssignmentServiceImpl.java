@@ -67,6 +67,10 @@ public class SeatAssignmentServiceImpl implements SeatAssignmentService {
             throw new RuntimeException("Classroom Layout with ID " + layoutId + " not found");
         }
 
+        if (seatAssignmentRepository.existsByStudentAndClassroomLayout(studentOpt.get(), layoutOpt.get())) {
+            throw new RuntimeException("Student is already assigned a seat in this classroom layout");
+        }
+
         if (seatAssignmentRepository.existsByClassroomLayoutAndRowNumberAndColumnNumber(layoutOpt.get(), assignment.getRowNumber(), assignment.getColumnNumber())) {
             throw new RuntimeException("Seat is already occupied in this classroom layout");
         }
@@ -79,8 +83,8 @@ public class SeatAssignmentServiceImpl implements SeatAssignmentService {
             throw new RuntimeException("Seat assignment position exceeds classroom layout dimensions");
         }
 
-        assignment.setStudent(studentOpt.get());
         assignment.setAcademicStructure(sectionOpt.get());
+        assignment.setStudent(studentOpt.get());
         assignment.setClassroomLayout(layout);
         
         return seatAssignmentRepository.save(assignment);
@@ -110,6 +114,10 @@ public class SeatAssignmentServiceImpl implements SeatAssignmentService {
             throw new RuntimeException("Classroom Layout with ID " + newLayoutId + " not found");
         }
 
+        if (seatAssignmentRepository.existsByStudentAndClassroomLayoutAndIdNot(studentOpt.get(), layoutOpt.get(), id)) {
+            throw new RuntimeException("Student is already assigned a seat in this classroom layout");
+        }
+
         if (seatAssignmentRepository.existsByClassroomLayoutAndRowNumberAndColumnNumberAndIdNot(layoutOpt.get(), updatedAssignment.getRowNumber(), updatedAssignment.getColumnNumber(), id)) {
             throw new RuntimeException("Seat is already occupied in this classroom layout");
         }
@@ -124,8 +132,8 @@ public class SeatAssignmentServiceImpl implements SeatAssignmentService {
         
         SeatAssignment existingAssignment = existingAssignmentOpt.get();
         
-        existingAssignment.setStudent(studentOpt.get());
         existingAssignment.setAcademicStructure(sectionOpt.get());
+        existingAssignment.setStudent(studentOpt.get());
         existingAssignment.setClassroomLayout(layout);
         existingAssignment.setRowNumber(row);
         existingAssignment.setColumnNumber(col);

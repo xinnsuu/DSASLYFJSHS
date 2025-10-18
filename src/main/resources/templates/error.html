@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Error Page</title>
+    <link rel="stylesheet" href="/css/common.css">
+</head>
+<body>
+    <div class="error-container">
+        <div class="error-header">
+            <h1 class="error-code" th:text="${status}?: '500'">500</h1>
+            <h2 class="error-title">Oops! Something went wrong</h2>
+            <p th:text="${error}?: 'Internal Server Error'">Internal Server Error</p>
+        </div>
+        
+        <div class="accordion" id="errorAccordion">
+            <div class="accordion-header">
+                <span>View Error Details</span>
+                <span>▼</span>
+            </div>
+            <div class="accordion-content">
+                <div class="error-details" th:text="${message}?: 'No additional error information provided.'">
+                    No additional error information provided.
+                </div>
+                <div class="error-details" th:if="${trace}" th:text="${trace}?: ''"></div>
+            </div>
+        </div>
+        
+        <a href="/" class="back-button">Go Back Home</a>
+    </div>
+    
+    <script src="/js/error.js"></script>
+</body>
+</html>

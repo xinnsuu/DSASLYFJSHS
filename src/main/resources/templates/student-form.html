@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Student Form</title>
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/form-styles.css">
+</head>
+<body>
+    <h1 th:text="${student.studentId == null} ? 'Add Student' : 'Edit Student'"></h1>
+
+    <form th:action="${student.studentId == null} ? @{/students/new} : @{/students/edit/{id}(id=${student.studentId})}"
+          th:object="${student}" method="post">
+
+        <div>
+            <label>Student ID:</label>
+            <input type="text" th:field="*{studentId}" placeholder="Enter student ID..." required th:readonly="${student.studentId != null}" />
+        </div>
+
+        <div>
+            <label>First Name:</label>
+            <input type="text" th:field="*{firstName}" placeholder="Enter first name..." required />
+        </div>
+
+        <div>
+            <label>Middle Name:</label>
+            <input type="text" th:field="*{middleName}" placeholder="Enter middle name..." />
+        </div>
+
+        <div>
+            <label>Last Name:</label>
+            <input type="text" th:field="*{lastName}" placeholder="Enter last name..." required />
+        </div>
+
+        <div>
+            <label>Suffix:</label>
+            <input type="text" th:field="*{suffix}" placeholder="Enter suffix..." />
+        </div>
+
+        <div>
+            <label>Academic Structure:</label>
+            <select th:field="*{academicStructure}">
+                <option th:each="structure : ${structures}"
+                        th:value="${structure.id}"
+                        th:text="${structure.sectionName}"></option>
+            </select>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="button save-button">Save</button>
+            <a th:if="${student.studentId != null}" th:href="@{/students/delete/{id}(id=${student.studentId})}" class="button delete-button">Delete</a>
+        </div>
+    </form>
+</body>
+</html>

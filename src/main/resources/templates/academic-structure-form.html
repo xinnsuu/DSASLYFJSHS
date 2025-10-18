@@ -174,7 +174,7 @@
         <div>
             <label>Grade Level:</label>
             <select th:field="*{gradeLevel}">
-                <option th:each="level : ${T(com.xinnsuu.seatflow.model.enums.GradeLevel).values()}" 
+                <option th:each="level : ${T(com.xinnsuu.seatflow.model.enums.GradeLevel).values()}"
                         th:value="${level}" th:text="${level.displayValue}"></option>
             </select>
         </div>
@@ -182,7 +182,7 @@
         <div>
             <label>Strand:</label>
             <select th:field="*{strand}">
-                <option th:each="s : ${T(com.xinnsuu.seatflow.model.enums.Strand).values()}" 
+                <option th:each="s : ${T(com.xinnsuu.seatflow.model.enums.Strand).values()}"
                         th:value="${s}" th:text="${s}"></option>
             </select>
         </div>

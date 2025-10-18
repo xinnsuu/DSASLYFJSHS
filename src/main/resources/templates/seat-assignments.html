@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Seat Assignments</title>
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/list-styles.css">
+</head>
+<body>
+    <h1>Seat Assignments</h1>
+
+    <div class="section-selector">
+        <form action="/assignments" method="get">
+            <label for="sectionSelector">Select Section:</label>
+            <select id="sectionSelector" name="sectionId">
+                <option value="">-- Select a Section --</option>
+                <option th:each="section : ${sections}"
+                        th:value="${section.id}"
+                        th:text="${section.sectionName}"
+                        th:selected="${param.sectionId != null and #strings.equals(param.sectionId, section.id)}"></option>
+            </select>
+        </form>
+    </div>
+
+    <a th:if="${param.sectionId != null}" th:href="@{/assignments/new(sectionId=${param.sectionId})}" class="add-link">Add Seat Assignment</a>
+
+    <table th:if="${assignments != null}">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Student</th>
+                <th>Layout</th>
+                <th>Row</th>
+                <th>Column</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="assignment : ${assignments}" th:onclick="'window.location.href=\'' + @{/assignments/edit/{id}(id=${assignment.id},sectionId=${param.sectionId})} + '\''">
+                <td th:text="${assignment.id}"></td>
+                <td th:text="${assignment.student.firstName + ' ' + assignment.student.lastName}"></td>
+                <td th:text="${assignment.classroomLayout.name}"></td>
+                <td th:text="${assignment.rowNumber}"></td>
+                <td th:text="${assignment.columnNumber}"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script src="/js/section.js"></script>
+</body>
+</html>
