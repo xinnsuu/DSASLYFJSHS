@@ -1,20 +1,26 @@
 <div xmlns:th="http://www.thymeleaf.org" th:fragment="navbar">
-    <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
-        <div class="navbar-brand">
-            <a class="navbar-item" th:href="@{/}">
-                <strong>Seatflow</strong>
-            </a>
-        </div>
-
-        <div class="navbar-menu">
-            <div class="navbar-start">
-                <a th:href="@{/}" class="navbar-item" data-nav-link>Home</a>
-                <a th:href="@{/sections}" class="navbar-item" data-nav-link>Sections</a>
-                <a th:href="@{/layouts}" class="navbar-item" data-nav-link>Layouts</a>
-                <a th:href="@{/students}" class="navbar-item" data-nav-link>Students</a>
-                <a th:href="@{/assignments}" class="navbar-item" data-nav-link>Assignments</a>
-            </div>
-        </div>
+    <!-- Bottom Navigation Bar -->
+    <nav class="bottom-nav is-primary" role="navigation" aria-label="bottom navigation">
+        <a th:href="@{/}" class="bottom-nav-item" data-nav-link>
+            <i class="fas fa-home bottom-nav-icon"></i>
+            <span class="bottom-nav-text">Home</span>
+        </a>
+        <a th:href="@{/sections}" class="bottom-nav-item" data-nav-link>
+            <i class="fas fa-chalkboard-teacher bottom-nav-icon"></i>
+            <span class="bottom-nav-text">Sections</span>
+        </a>
+        <a th:href="@{/layouts}" class="bottom-nav-item" data-nav-link>
+            <i class="fas fa-th-large bottom-nav-icon"></i>
+            <span class="bottom-nav-text">Layouts</span>
+        </a>
+        <a th:href="@{/students}" class="bottom-nav-item" data-nav-link>
+            <i class="fas fa-user-graduate bottom-nav-icon"></i>
+            <span class="bottom-nav-text">Students</span>
+        </a>
+        <a th:href="@{/assignments}" class="bottom-nav-item" data-nav-link>
+            <i class="fas fa-chair bottom-nav-icon"></i>
+            <span class="bottom-nav-text">Assignments</span>
+        </a>
     </nav>
     
     <script>
