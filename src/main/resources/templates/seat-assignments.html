@@ -12,22 +12,13 @@
     
     <section class="section">
         <div class="container">
+            <!-- Header in a card -->
+            <div class="box mb-5">
+                <h1 class="title is-3">Seat Assignments</h1>
+            </div>
+
             <div class="columns is-centered">
                 <div class="column is-10">
-                    <div class="level">
-                        <div class="level-left">
-                            <h1 class="title is-2">Seat Assignments</h1>
-                        </div>
-                        <div class="level-right" th:if="${param.sectionId != null}">
-                            <a th:href="@{/assignments/new(sectionId=${param.sectionId})}" class="button is-primary is-medium">
-                                <span class="icon">
-                                    <i class="fas fa-plus"></i>
-                                </span>
-                                <span>Add Seat Assignment</span>
-                            </a>
-                        </div>
-                    </div>
-
                     <div class="box mb-4">
                         <form action="/assignments" method="get" class="field">
                             <label class="label">Select Section:</label>
@@ -75,6 +66,15 @@
                 </div>
             </div>
         </div>
+        
+        <!-- Floating Add Button -->
+        <a th:href="@{/assignments/new(sectionId=${param.sectionId})}" class="button is-primary is-rounded add-fab" th:if="${param.sectionId != null}">
+            <span class="icon">
+                <i class="fas fa-plus"></i>
+            </span>
+        </a>
+        
+        <script src="/js/section.js"></script>
     </section>
     
     <script src="/js/section.js"></script>

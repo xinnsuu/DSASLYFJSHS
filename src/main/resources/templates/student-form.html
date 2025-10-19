@@ -12,10 +12,13 @@
     
     <section class="section">
         <div class="container">
+            <!-- Header in a card -->
+            <div class="box mb-5">
+                <h1 class="title is-3" th:text="${student.studentId == null} ? 'Add Student' : 'Edit Student'"></h1>
+            </div>
+
             <div class="columns is-centered">
                 <div class="column is-6">
-                    <h1 class="title is-2" th:text="${student.studentId == null} ? 'Add Student' : 'Edit Student'"></h1>
-
                     <form th:action="${student.studentId == null} ? @{/students/new} : @{/students/edit/{id}(id=${student.studentId})}"
                     th:object="${student}" method="post" class="box">
 

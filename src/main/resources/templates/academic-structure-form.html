@@ -12,10 +12,13 @@
     
     <section class="section">
         <div class="container">
+            <!-- Header in a card -->
+            <div class="box mb-5">
+                <h1 class="title is-3" th:text="${structure.id == null} ? 'Add Academic Structure' : 'Edit Academic Structure'"></h1>
+            </div>
+
             <div class="columns is-centered">
                 <div class="column is-6">
-                    <h1 class="title is-2" th:text="${structure.id == null} ? 'Add Academic Structure' : 'Edit Academic Structure'"></h1>
-
                     <form th:action="${structure.id == null} ? @{/sections/new} : @{/sections/edit/{id}(id=${structure.id})}" 
                           th:object="${structure}" method="post" class="box">
                         <input type="hidden" th:field="*{id}"/>

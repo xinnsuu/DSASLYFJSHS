@@ -12,22 +12,13 @@
     
     <section class="section">
         <div class="container">
+            <!-- Header in a card -->
+            <div class="box mb-5">
+                <h1 class="title is-3">Classroom Layouts</h1>
+            </div>
+
             <div class="columns is-centered">
                 <div class="column is-10">
-                    <div class="level">
-                        <div class="level-left">
-                            <h1 class="title is-2">Classroom Layouts</h1>
-                        </div>
-                        <div class="level-right">
-                            <a href="/layouts/new" class="button is-primary is-medium">
-                                <span class="icon">
-                                    <i class="fas fa-plus"></i>
-                                </span>
-                                <span>Add Classroom Layout</span>
-                            </a>
-                        </div>
-                    </div>
-
                     <div class="table-container">
                         <table class="table is-fullwidth is-striped is-hoverable">
                             <thead>
@@ -56,6 +47,13 @@
                 </div>
             </div>
         </div>
+        
+        <!-- Floating Add Button -->
+        <a href="/layouts/new" class="button is-primary is-rounded add-fab">
+            <span class="icon">
+                <i class="fas fa-plus"></i>
+            </span>
+        </a>
     </section>
 </body>
 </html>
