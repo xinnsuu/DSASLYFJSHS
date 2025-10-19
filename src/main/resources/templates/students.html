@@ -41,7 +41,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr th:each="student : ${students}" th:onclick="'window.location.href=\'' + @{/students/edit/{id}(id=${student.studentId})} + '\\''" class="clickable-row">
+                                <tr th:each="student : ${students}" th:onclick="'window.location.href = \'' + @{/students/edit/{id}(id=${student.studentId})} + '\''" class="clickable-row">
                                     <td th:text="${student.studentId}"></td>
                                     <td th:text="${student.firstName}"></td>
                                     <td th:text="${student.middleName}"></td>

@@ -27,32 +27,35 @@
                             </a>
                         </div>
                     </div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Grade Level</th>
-                                <th>Strand</th>
-                                <th>Section Name</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr th:each="structure : ${structures}" th:onclick="'window.location.href=\'' + @{/sections/edit/{id}(id=${structure.id})} + '\''">
-                                <td th:text="${structure.id}"></td>
-                                <td th:text="${structure.gradeLevel}"></td>
-                                <td th:text="${structure.strand}"></td>
-                                <td th:text="${structure.sectionName}"></td>
-                                <td>
-                                    <a th:href="@{/sections/edit/{id}(id=${structure.id})}" class="button is-small is-info">Edit</a>
-                                    <a th:href="@{/sections/delete/{id}(id=${structure.id})}" class="button is-small is-danger">Delete</a>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+
+                    <div class="table-container">
+                        <table class="table is-fullwidth is-striped is-hoverable">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Grade Level</th>
+                                    <th>Strand</th>
+                                    <th>Section Name</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="structure : ${structures}" th:onclick="'window.location.href = \'' + @{/sections/edit/{id}(id=${structure.id})} + '\''" class="clickable-row">
+                                    <td th:text="${structure.id}"></td>
+                                    <td th:text="${structure.gradeLevel}"></td>
+                                    <td th:text="${structure.strand}"></td>
+                                    <td th:text="${structure.sectionName}"></td>
+                                    <td>
+                                        <a th:href="@{/sections/edit/{id}(id=${structure.id})}" class="button is-small is-info">Edit</a>
+                                        <a th:href="@{/sections/delete/{id}(id=${structure.id})}" class="button is-small is-danger">Delete</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 </body>
 </html>

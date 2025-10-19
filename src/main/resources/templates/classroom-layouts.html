@@ -40,7 +40,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr th:each="layout : ${layouts}" th:onclick="'window.location.href=\'' + @{/layouts/edit/{id}(id=${layout.id})} + '\\''" class="clickable-row">
+                                <tr th:each="layout : ${layouts}" th:onclick="'window.location.href = \'' + @{/layouts/edit/{id}(id=${layout.id})} + '\''" class="clickable-row">
                                     <td th:text="${layout.id}"></td>
                                     <td th:text="${layout.name}"></td>
                                     <td th:text="${layout.rows}"></td>
