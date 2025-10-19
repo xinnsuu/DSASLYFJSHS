@@ -1,0 +1,15 @@
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="navbar">
+    <header class="site-navbar" role="banner">
+        <div class="nav-left">
+            <a class="brand" th:href="@{/}">Seatflow</a>
+        </div>
+
+        <nav class="nav-links" role="navigation" aria-label="Main navigation">
+            <a th:href="@{/}" th:classappend="${#httpServletRequest.requestURI == '/'} ? ' active' : ''">Home</a>
+            <a th:href="@{/sections}" th:classappend="${#httpServletRequest.requestURI.startsWith('/sections')} ? ' active' : ''">Sections</a>
+            <a th:href="@{/layouts}" th:classappend="${#httpServletRequest.requestURI.startsWith('/layouts')} ? ' active' : ''">Layouts</a>
+            <a th:href="@{/students}" th:classappend="${#httpServletRequest.requestURI.startsWith('/students')} ? ' active' : ''">Students</a>
+            <a th:href="@{/assignments}" th:classappend="${#httpServletRequest.requestURI.startsWith('/assignments')} ? ' active' : ''">Assignments</a>
+        </nav>
+    </header>
+</div>
