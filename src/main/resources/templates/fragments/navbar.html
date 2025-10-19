@@ -1,15 +1,39 @@
 <div xmlns:th="http://www.thymeleaf.org" th:fragment="navbar">
-    <header class="site-navbar" role="banner">
-        <div class="nav-left">
-            <a class="brand" th:href="@{/}">Seatflow</a>
+    <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" th:href="@{/}">
+                <strong>Seatflow</strong>
+            </a>
         </div>
 
-        <nav class="nav-links" role="navigation" aria-label="Main navigation">
-            <a th:href="@{/}" th:classappend="${#httpServletRequest.requestURI == '/'} ? ' active' : ''">Home</a>
-            <a th:href="@{/sections}" th:classappend="${#httpServletRequest.requestURI.startsWith('/sections')} ? ' active' : ''">Sections</a>
-            <a th:href="@{/layouts}" th:classappend="${#httpServletRequest.requestURI.startsWith('/layouts')} ? ' active' : ''">Layouts</a>
-            <a th:href="@{/students}" th:classappend="${#httpServletRequest.requestURI.startsWith('/students')} ? ' active' : ''">Students</a>
-            <a th:href="@{/assignments}" th:classappend="${#httpServletRequest.requestURI.startsWith('/assignments')} ? ' active' : ''">Assignments</a>
-        </nav>
-    </header>
+        <div class="navbar-menu">
+            <div class="navbar-start">
+                <a th:href="@{/}" class="navbar-item" data-nav-link>Home</a>
+                <a th:href="@{/sections}" class="navbar-item" data-nav-link>Sections</a>
+                <a th:href="@{/layouts}" class="navbar-item" data-nav-link>Layouts</a>
+                <a th:href="@{/students}" class="navbar-item" data-nav-link>Students</a>
+                <a th:href="@{/assignments}" class="navbar-item" data-nav-link>Assignments</a>
+            </div>
+        </div>
+    </nav>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get current page path
+            const currentPath = window.location.pathname;
+            
+            // Get all navigation links
+            const navLinks = document.querySelectorAll('[data-nav-link]');
+            
+            // Compare and activate
+            navLinks.forEach(link => {
+                if (link.getAttribute('href') === currentPath) {
+                    link.classList.add('is-active');
+                } else if (currentPath.startsWith(link.getAttribute('href')) && link.getAttribute('href') !== '/') {
+                    // For sub-paths like /sections/123, match /sections
+                    link.classList.add('is-active');
+                }
+            });
+        });
+    </script>
 </div>

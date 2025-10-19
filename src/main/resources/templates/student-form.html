@@ -2,54 +2,91 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Student Form</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link rel="stylesheet" href="/css/common.css">
-    <link rel="stylesheet" href="/css/form-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <div th:replace="fragments/navbar :: navbar"></div>
-    <h1 th:text="${student.studentId == null} ? 'Add Student' : 'Edit Student'"></h1>
+    <th:block th:insert="~{fragments/navbar :: navbar}"></th:block>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns is-centered">
+                <div class="column is-6">
+                    <h1 class="title is-2" th:text="${student.studentId == null} ? 'Add Student' : 'Edit Student'"></h1>
 
-    <form th:action="${student.studentId == null} ? @{/students/new} : @{/students/edit/{id}(id=${student.studentId})}"
-          th:object="${student}" method="post">
+                    <form th:action="${student.studentId == null} ? @{/students/new} : @{/students/edit/{id}(id=${student.studentId})}"
+                    th:object="${student}" method="post" class="box">
 
-        <div>
-            <label>Student ID:</label>
-            <input type="text" th:field="*{studentId}" placeholder="Enter student ID..." required th:readonly="${student.studentId != null}" />
+                    <div class="field">
+                        <label class="label">Student ID:</label>
+                        <div class="control">
+                            <input class="input" type="text" th:field="*{studentId}" placeholder="Enter student ID..." required th:readonly="${student.studentId != null}" />
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">First Name:</label>
+                        <div class="control">
+                            <input class="input" type="text" th:field="*{firstName}" placeholder="Enter first name..." required />
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Middle Name:</label>
+                        <div class="control">
+                            <input class="input" type="text" th:field="*{middleName}" placeholder="Enter middle name..." />
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Last Name:</label>
+                        <div class="control">
+                            <input class="input" type="text" th:field="*{lastName}" placeholder="Enter last name..." required />
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Suffix:</label>
+                        <div class="control">
+                            <input class="input" type="text" th:field="*{suffix}" placeholder="Enter suffix..." />
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Academic Structure:</label>
+                        <div class="control">
+                            <div class="select is-fullwidth">
+                                <select th:field="*{academicStructure}">
+                                    <option th:each="structure : ${structures}"
+                                    th:value="${structure.id}"
+                                    th:text="${structure.sectionName}"></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="field is-grouped">
+                        <div class="control">
+                            <button type="submit" class="button is-primary">
+                                <span class="icon">
+                                    <i class="fas fa-save"></i>
+                                </span>
+                                <span>Save</span>
+                            </button>
+                        </div>
+                        <div th:if="${student.studentId != null}" class="control">
+                            <a th:href="@{/students/delete/{id}(id=${student.studentId})}" class="button is-danger">Delete</a>
+                        </div>
+                        <div class="control">
+                            <a th:href="@{/students}" class="button is-light">Cancel</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
-
-        <div>
-            <label>First Name:</label>
-            <input type="text" th:field="*{firstName}" placeholder="Enter first name..." required />
-        </div>
-
-        <div>
-            <label>Middle Name:</label>
-            <input type="text" th:field="*{middleName}" placeholder="Enter middle name..." />
-        </div>
-
-        <div>
-            <label>Last Name:</label>
-            <input type="text" th:field="*{lastName}" placeholder="Enter last name..." required />
-        </div>
-
-        <div>
-            <label>Suffix:</label>
-            <input type="text" th:field="*{suffix}" placeholder="Enter suffix..." />
-        </div>
-
-        <div>
-            <label>Academic Structure:</label>
-            <select th:field="*{academicStructure}">
-                <option th:each="structure : ${structures}"
-                        th:value="${structure.id}"
-                        th:text="${structure.sectionName}"></option>
-            </select>
-        </div>
-
-        <div class="form-actions">
-            <button type="submit" class="button save-button">Save</button>
-            <a th:if="${student.studentId != null}" th:href="@{/students/delete/{id}(id=${student.studentId})}" class="button delete-button">Delete</a>
-        </div>
-    </form>
+    </div>
+</section>
 </body>
 </html>

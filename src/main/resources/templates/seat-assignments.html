@@ -2,48 +2,81 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Seat Assignments</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link rel="stylesheet" href="/css/common.css">
-    <link rel="stylesheet" href="/css/list-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <h1>Seat Assignments</h1>
+    <th:block th:insert="~{fragments/navbar :: navbar}"></th:block>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns is-centered">
+                <div class="column is-10">
+                    <div class="level">
+                        <div class="level-left">
+                            <h1 class="title is-2">Seat Assignments</h1>
+                        </div>
+                        <div class="level-right" th:if="${param.sectionId != null}">
+                            <a th:href="@{/assignments/new(sectionId=${param.sectionId})}" class="button is-primary is-medium">
+                                <span class="icon">
+                                    <i class="fas fa-plus"></i>
+                                </span>
+                                <span>Add Seat Assignment</span>
+                            </a>
+                        </div>
+                    </div>
 
-    <div class="section-selector">
-        <form action="/assignments" method="get">
-            <label for="sectionSelector">Select Section:</label>
-            <select id="sectionSelector" name="sectionId">
-                <option value="">-- Select a Section --</option>
-                <option th:each="section : ${sections}"
-                        th:value="${section.id}"
-                        th:text="${section.sectionName}"
-                        th:selected="${param.sectionId != null and #strings.equals(param.sectionId, section.id)}"></option>
-            </select>
-        </form>
-    </div>
+                    <div class="box mb-4">
+                        <form action="/assignments" method="get" class="field">
+                            <label class="label">Select Section:</label>
+                            <div class="control">
+                                <div class="select is-fullwidth">
+                                    <select id="sectionSelector" name="sectionId">
+                                        <option value="">-- Select a Section --</option>
+                                        <option th:each="section : ${sections}"
+                                                th:value="${section.id}"
+                                                th:text="${section.sectionName}"
+                                                th:selected="${param.sectionId != null and #strings.equals(param.sectionId, section.id)}"></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
 
-    <a th:if="${param.sectionId != null}" th:href="@{/assignments/new(sectionId=${param.sectionId})}" class="add-link">Add Seat Assignment</a>
-
-    <table th:if="${assignments != null}">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Student</th>
-                <th>Layout</th>
-                <th>Row</th>
-                <th>Column</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="assignment : ${assignments}" th:onclick="'window.location.href=\'' + @{/assignments/edit/{id}(id=${assignment.id},sectionId=${param.sectionId})} + '\''">
-                <td th:text="${assignment.id}"></td>
-                <td th:text="${assignment.student.firstName + ' ' + assignment.student.lastName}"></td>
-                <td th:text="${assignment.classroomLayout.name}"></td>
-                <td th:text="${assignment.rowNumber}"></td>
-                <td th:text="${assignment.columnNumber}"></td>
-            </tr>
-        </tbody>
-    </table>
-
+                    <div class="table-container" th:if="${assignments != null}">
+                        <table class="table is-fullwidth is-striped is-hoverable">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Student</th>
+                                    <th>Layout</th>
+                                    <th>Row</th>
+                                    <th>Column</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="assignment : ${assignments}" th:onclick="'window.location.href=\'' + @{/assignments/edit/{id}(id=${assignment.id},sectionId=${param.sectionId})} + '\\''" class="clickable-row">
+                                    <td th:text="${assignment.id}"></td>
+                                    <td th:text="${assignment.student.firstName + ' ' + assignment.student.lastName}"></td>
+                                    <td th:text="${assignment.classroomLayout.name}"></td>
+                                    <td th:text="${assignment.rowNumber}"></td>
+                                    <td th:text="${assignment.columnNumber}"></td>
+                                    <td>
+                                        <a th:href="@{/assignments/edit/{id}(id=${assignment.id},sectionId=${param.sectionId})}" class="button is-small is-info">Edit</a>
+                                        <a th:href="@{/assignments/delete/{id}(id=${assignment.id},sectionId=${param.sectionId})}" class="button is-small is-danger">Delete</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
     <script src="/js/section.js"></script>
 </body>
 </html>

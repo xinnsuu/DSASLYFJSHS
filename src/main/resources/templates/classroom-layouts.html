@@ -2,29 +2,60 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Classroom Layouts</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link rel="stylesheet" href="/css/common.css">
-    <link rel="stylesheet" href="/css/list-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <h1>Classroom Layouts</h1>
-    <a href="/layouts/new" class="add-link">Add Classroom Layout</a>
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Rows</th>
-                <th>Columns</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="layout : ${layouts}" th:onclick="'window.location.href=\'' + @{/layouts/edit/{id}(id=${layout.id})} + '\''">
-                <td th:text="${layout.id}"></td>
-                <td th:text="${layout.name}"></td>
-                <td th:text="${layout.rows}"></td>
-                <td th:text="${layout.columns}"></td>
-            </tr>
-        </tbody>
-    </table>
+    <th:block th:insert="~{fragments/navbar :: navbar}"></th:block>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns is-centered">
+                <div class="column is-10">
+                    <div class="level">
+                        <div class="level-left">
+                            <h1 class="title is-2">Classroom Layouts</h1>
+                        </div>
+                        <div class="level-right">
+                            <a href="/layouts/new" class="button is-primary is-medium">
+                                <span class="icon">
+                                    <i class="fas fa-plus"></i>
+                                </span>
+                                <span>Add Classroom Layout</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="table-container">
+                        <table class="table is-fullwidth is-striped is-hoverable">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Rows</th>
+                                    <th>Columns</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="layout : ${layouts}" th:onclick="'window.location.href=\'' + @{/layouts/edit/{id}(id=${layout.id})} + '\\''" class="clickable-row">
+                                    <td th:text="${layout.id}"></td>
+                                    <td th:text="${layout.name}"></td>
+                                    <td th:text="${layout.rows}"></td>
+                                    <td th:text="${layout.columns}"></td>
+                                    <td>
+                                        <a th:href="@{/layouts/edit/{id}(id=${layout.id})}" class="button is-small is-info">Edit</a>
+                                        <a th:href="@{/layouts/delete/{id}(id=${layout.id})}" class="button is-small is-danger">Delete</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 </body>
 </html>

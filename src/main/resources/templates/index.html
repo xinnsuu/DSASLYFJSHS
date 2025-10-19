@@ -2,47 +2,71 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Seatflow - Landing Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link rel="stylesheet" href="/css/common.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <div class="header">
-        <h1>Seatflow</h1>
-        <p>Effortless classroom seat assignment management</p>
-    </div>
+    <th:block th:insert="~{fragments/navbar :: navbar}"></th:block>
     
-    <div class="features-container">
-        <a href="/sections" class="feature-box">
-            <div class="feature-icon">
-                <i class="fas fa-chalkboard-teacher"></i>
+    <section class="section">
+        <div class="container">
+            <div class="has-text-centered">
+                <h1 class="title is-1">Seatflow</h1>
+                <p class="subtitle is-4">Effortless classroom seat assignment management</p>
             </div>
-            <h2 class="feature-title">Sections</h2>
-            <p class="feature-description">Manage class sections and their details</p>
-        </a>
-        
-        <a href="/layouts" class="feature-box">
-            <div class="feature-icon">
-                <i class="fas fa-th-large"></i>
+            
+            <div class="columns is-multiline is-centered mt-6">
+                <div class="column is-one-quarter-desktop is-half-tablet">
+                    <a href="/sections" class="box has-text-centered">
+                        <div class="content">
+                            <div class="is-size-1 has-text-primary mb-3">
+                                <i class="fas fa-chalkboard-teacher"></i>
+                            </div>
+                            <h2 class="title is-4">Sections</h2>
+                            <p>Manage class sections and their details</p>
+                        </div>
+                    </a>
+                </div>
+                
+                <div class="column is-one-quarter-desktop is-half-tablet">
+                    <a href="/layouts" class="box has-text-centered">
+                        <div class="content">
+                            <div class="is-size-1 has-text-primary mb-3">
+                                <i class="fas fa-th-large"></i>
+                            </div>
+                            <h2 class="title is-4">Layouts</h2>
+                            <p>Design and manage classroom layouts</p>
+                        </div>
+                    </a>
+                </div>
+                
+                <div class="column is-one-quarter-desktop is-half-tablet">
+                    <a href="/students" class="box has-text-centered">
+                        <div class="content">
+                            <div class="is-size-1 has-text-primary mb-3">
+                                <i class="fas fa-user-graduate"></i>
+                            </div>
+                            <h2 class="title is-4">Students</h2>
+                            <p>Manage student information and details</p>
+                        </div>
+                    </a>
+                </div>
+                
+                <div class="column is-one-quarter-desktop is-half-tablet">
+                    <a href="/assignments" class="box has-text-centered">
+                        <div class="content">
+                            <div class="is-size-1 has-text-primary mb-3">
+                                <i class="fas fa-chair"></i>
+                            </div>
+                            <h2 class="title is-4">Assignments</h2>
+                            <p>Assign seats to students in sections</p>
+                        </div>
+                    </a>
+                </div>
             </div>
-            <h2 class="feature-title">Layouts</h2>
-            <p class="feature-description">Design and manage classroom layouts</p>
-        </a>
-        
-        <a href="/students" class="feature-box">
-            <div class="feature-icon">
-                <i class="fas fa-user-graduate"></i>
-            </div>
-            <h2 class="feature-title">Students</h2>
-            <p class="feature-description">Manage student information and details</p>
-        </a>
-        
-        <a href="/assignments" class="feature-box">
-            <div class="feature-icon">
-                <i class="fas fa-chair"></i>
-            </div>
-            <h2 class="feature-title">Assignments</h2>
-            <p class="feature-description">Assign seats to students in sections</p>
-        </a>
-    </div>
+        </div>
+    </section>
 </body>
 </html>
