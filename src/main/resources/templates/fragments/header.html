@@ -1,18 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <th:block th:fragment="header(title)">
-    <!-- Header as a strip with about button -->
-    <div class="header-strip mb-5" style="margin-left: -1.5rem; margin-right: -1.5rem;">
+    <div class="full-width-header">
         <div class="container">
-            <div class="has-text-centered is-flex is-justify-content-space-between is-align-items-center">
-                <div style="flex: 1;">
-                    <h1 class="title is-3" th:text="${title}">Page Title</h1>
-                </div>
-                <div>
-                    <button id="aboutButton" class="button is-text header-about-button">
+            <div class="header-content">
+                <h1 class="title is-3" th:text="${title}">Page Title</h1>
+                <button id="aboutButton" class="button is-info is-outlined">
+                    <span class="icon">
                         <i class="fas fa-info-circle"></i>
-                    </button>
-                </div>
+                    </span>
+                    <span>About</span>
+                </button>
             </div>
         </div>
     </div>

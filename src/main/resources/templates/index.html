@@ -8,20 +8,29 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <th:block th:insert="~{fragments/navbar :: navbar}"></th:block>
-    
-    <!-- Hero section -->
-    <section class="hero is-primary">
-        <div class="hero-body">
-            <div class="container has-text-centered">
+    <section class="hero is-primary is-medium">
+        <div class="hero-head">
+            <th:block th:insert="~{fragments/navbar :: navbar}"></th:block>
+        </div>
+
+        <div class="hero-body has-text-centered">
+            <div class="container">
                 <h1 class="title is-1">Seatflow</h1>
                 <p class="subtitle is-4">Effortless classroom seat assignment management</p>
-                <button id="aboutButton" class="button is-text" style="color: white; font-size: 1.5rem; margin-top: 1rem;">
-                    <i class="fas fa-info-circle"></i>
-                </button>
             </div>
         </div>
     </section>
+
+    <div class="container" style="padding: 2rem 0;">
+        <div class="is-flex is-justify-content-flex-end">
+            <button id="aboutButton" class="button is-info is-outlined">
+                <span class="icon">
+                    <i class="fas fa-info-circle"></i>
+                </span>
+                <span>About</span>
+            </button>
+        </div>
+    </div>
     
     <section class="section">
         <div class="container">
@@ -76,11 +85,6 @@
             </div>
         </div>
         
-        <th:block th:insert="~{fragments/about-modal :: aboutModal}"></th:block>
-    </section>
-        <th:block th:insert="~{fragments/about-modal :: aboutModal}"></th:block>
-    </section>
-    
         <th:block th:insert="~{fragments/about-modal :: aboutModal}"></th:block>
     </section>
     
