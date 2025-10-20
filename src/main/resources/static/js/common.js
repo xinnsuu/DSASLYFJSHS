@@ -20,3 +20,13 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
+function closeAboutModal() {
+    const aboutModal = document.getElementById('aboutModal');
+    const htmlElement = document.documentElement;
+    
+    if (aboutModal) {
+        aboutModal.classList.remove('is-active');
+        htmlElement.classList.remove('is-modal-active');
+    }
+}
