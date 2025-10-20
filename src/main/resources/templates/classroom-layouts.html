@@ -25,7 +25,6 @@
                                     <th>Name</th>
                                     <th>Rows</th>
                                     <th>Columns</th>
-                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -34,10 +33,6 @@
                                     <td th:text="${layout.name}"></td>
                                     <td th:text="${layout.rows}"></td>
                                     <td th:text="${layout.columns}"></td>
-                                    <td>
-                                        <a th:href="@{/layouts/edit/{id}(id=${layout.id})}" class="button is-small is-info">Edit</a>
-                                        <a th:href="@{/layouts/delete/{id}(id=${layout.id})}" class="button is-small is-danger">Delete</a>
-                                    </td>
                                 </tr>
                             </tbody>
                         </table>

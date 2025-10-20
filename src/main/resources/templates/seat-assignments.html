@@ -43,7 +43,6 @@
                                     <th>Layout</th>
                                     <th>Row</th>
                                     <th>Column</th>
-                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -53,10 +52,6 @@
                                     <td th:text="${assignment.classroomLayout.name}"></td>
                                     <td th:text="${assignment.rowNumber}"></td>
                                     <td th:text="${assignment.columnNumber}"></td>
-                                    <td>
-                                        <a th:href="@{/assignments/edit/{id}(id=${assignment.id},sectionId=${param.sectionId})}" class="button is-small is-info">Edit</a>
-                                        <a th:href="@{/assignments/delete/{id}(id=${assignment.id},sectionId=${param.sectionId})}" class="button is-small is-danger">Delete</a>
-                                    </td>
                                 </tr>
                             </tbody>
                         </table>
