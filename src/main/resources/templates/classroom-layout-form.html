@@ -1,70 +1,55 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Classroom Layout Form</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-    <link rel="stylesheet" href="/css/common.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <script src="/js/common.js" defer></script>
-</head>
+<head th:replace="~{fragments/head :: head('Classroom Layout Form')}"></head>
 <body>
     <th:block th:insert="~{fragments/navbar :: navbar}"></th:block>
-
     <th:block th:insert="~{fragments/header :: header(${layout.id == null} ? 'Add Classroom Layout' : 'Edit Classroom Layout')}"></th:block>
-
-    <section class="section" style="padding-top: 0.5rem; padding-bottom: 0.5rem;">
+    <section class="section py-small">
         <div class="container">
-
             <div class="columns is-centered">
                 <div class="column is-6">
                     <form th:action="${layout.id == null} ? @{/layouts/new} : @{/layouts/edit/{id}(id=${layout.id})}"
-                          th:object="${layout}" method="post" class="box">
-                        <input type="hidden" th:field="*{id}"/>
-
-                        <div class="field">
-                            <label class="label">Layout Name:</label>
-                            <div class="control">
-                                <input class="input" type="text" th:field="*{name}" placeholder="Enter layout name..." required />
-                            </div>
+                    th:object="${layout}" method="post" class="box">
+                    <input type="hidden" th:field="*{id}"/>
+                    <div class="field">
+                        <label class="label">Layout Name:</label>
+                        <div class="control">
+                            <input class="input" type="text" th:field="*{name}" placeholder="Enter layout name..." required />
                         </div>
-
-                        <div class="field">
-                            <label class="label">Rows:</label>
-                            <div class="control">
-                                <input class="input" type="number" th:field="*{rows}" placeholder="Enter number of rows..." required min="1" />
-                            </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">Rows:</label>
+                        <div class="control">
+                            <input class="input" type="number" th:field="*{rows}" placeholder="Enter number of rows..." required min="1" />
                         </div>
-
-                        <div class="field">
-                            <label class="label">Columns:</label>
-                            <div class="control">
-                                <input class="input" type="number" th:field="*{columns}" placeholder="Enter number of columns..." required min="1" />
-                            </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">Columns:</label>
+                        <div class="control">
+                            <input class="input" type="number" th:field="*{columns}" placeholder="Enter number of columns..." required min="1" />
                         </div>
-
-                        <div class="field is-grouped">
-                            <div class="control">
-                                <button type="submit" class="button is-primary">
-                                    <span class="icon">
-                                        <i class="fas fa-save"></i>
-                                    </span>
-                                    <span>Save</span>
-                                </button>
-                            </div>
-                            <div th:if="${layout.id != null}" class="control">
-                                <a th:href="@{/layouts/delete/{id}(id=${layout.id})}" class="button is-danger">Delete</a>
-                            </div>
-                            <div class="control">
-                                <a th:href="@{/layouts}" class="button is-light">Cancel</a>
-                            </div>
+                    </div>
+                    <div class="field is-grouped">
+                        <div class="control">
+                            <button type="submit" class="button is-primary">
+                                <span class="icon">
+                                    <i class="fas fa-save"></i>
+                                </span>
+                                <span>Save</span>
+                            </button>
                         </div>
-                    </form>
-                </div>
+                        <div th:if="${layout.id != null}" class="control">
+                            <a th:href="@{/layouts/delete/{id}(id=${layout.id})}" class="button is-danger is-light">Delete</a>
+                        </div>
+                        <div class="control">
+                            <a th:href="@{/layouts}" class="button is-light">Cancel</a>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
-        
-        <th:block th:insert="~{fragments/about-modal :: aboutModal}"></th:block>
-    </section>
+    </div>
+    <th:block th:insert="~{fragments/about-modal :: aboutModal}"></th:block>
+</section>
 </body>
 </html>

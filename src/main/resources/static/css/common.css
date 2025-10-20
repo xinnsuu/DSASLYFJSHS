@@ -1,4 +1,3 @@
-/* General body and background styles for all pages - Light mode */
 body {
     font-family: 'Montserrat', sans-serif;
     background-color: #f5f5f5;
@@ -7,16 +6,12 @@ body {
     padding-bottom: 70px; /* Space for bottom nav */
 }
 
-/* Remove glow effect from titles */
 .title.has-text-centered,
 .title.is-1,
 .title.is-2 {
-    text-shadow: none;
-    animation: none;
     color: #333;
 }
 
-/* Custom card styles for light mode */
 .box {
     background-color: white !important;
     color: #333;
@@ -27,35 +22,22 @@ body {
     color: white;
 }
 
-.about-button-icon {
-    background-color: transparent !important;
-    border: none !important;
-}
-
-.about-button-icon .icon {
-    font-size: 1.5rem;
-    color: white;
-}
-
-/* Floating Add Button (FAB) */
 .add-fab {
     position: fixed;
     bottom: 80px;  /* Above the bottom nav bar */
     right: 20px;
     z-index: 999;
-    padding: 1.25rem 1.5rem; /* Increased padding for a larger button */
+    padding: 1.25rem 1.5rem;
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    font-size: 1.5rem; /* Increased font size for a larger icon */
+    font-size: 1.5rem;
 }
 
-/* Table container styling */
 .table-container {
     background-color: white;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-/* Table styling */
 .table {
     background-color: white;
     color: #333;
@@ -76,7 +58,6 @@ body {
     background-color: #f8f9fa !important;
 }
 
-/* Button styling */
 .button.is-primary {
     background-color: #00BCD4 !important;
     color: white !important;
@@ -116,7 +97,6 @@ body {
     border-radius: 4px !important;
 }
 
-/* Form styling */
 .input, .select select {
     background-color: white !important;
     color: #333 !important;
@@ -130,7 +110,6 @@ body {
     background-color: white !important;
 }
 
-/* Responsive adjustments for smaller screens */
 @media (max-width: 768px) {
     .features-container {
         padding: 1rem;
@@ -140,7 +119,6 @@ body {
         max-width: 300px;
     }
     
-    /* Mobile bottom navigation - icons only */
     .bottom-nav {
         display: flex;
         position: fixed;
@@ -149,7 +127,7 @@ body {
         width: 100%;
         height: 60px;
         z-index: 1000;
-        background-color: #00BCD4 !important; /* Primary blue background */
+        background-color: #00BCD4 !important;
         box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
     }
     
@@ -179,13 +157,11 @@ body {
         font-size: 1.4rem;
     }
     
-    /* Hide text on mobile */
     .bottom-nav-text {
         display: none;
     }
 }
 
-/* Desktop bottom navigation - text only */
 @media (min-width: 769px) {
     .bottom-nav {
         display: flex;
@@ -195,7 +171,7 @@ body {
         width: 100%;
         height: 60px;
         z-index: 1000;
-        background-color: #00BCD4 !important; /* Primary blue background */
+        background-color: #00BCD4 !important;
         box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
     }
     
@@ -221,9 +197,6 @@ body {
         background-color: rgba(0, 0, 0, 0.2);
     }
     
-    .bottom-nav-icon {
-        display: none; /* Hide icon on desktop */
-    }
     
     .bottom-nav-text {
         font-size: 1rem;
@@ -231,54 +204,33 @@ body {
     }
 }
 
-/* Section specific styling */
 .section {
     padding-top: 1.5rem;
     padding-bottom: 1.5rem;
 }
 
-/* Navbar active state */
+.py-small {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
 .navbar-item.is-active {
     background-color: rgba(0, 0, 0, 0.1) !important;
     font-weight: bold;
 }
 
-/* Custom CSS for interactive elements that need inline styling functionality */
-
-/* Make table rows clickable with pointer cursor */
 .clickable-row {
     cursor: pointer;
 }
 
-/* Hide elements that are controlled by JavaScript */
 .is-hidden {
     display: none !important;
-}
-
-/* Show elements that are controlled by JavaScript */
-.is-visible {
-    display: block !important;
-}
-
-/* Header strip styling */
-.header-strip {
-    padding: 1rem;
-    border-bottom: 1px solid #dbdbdb;
-    background-color: white;
 }
 
 .header-about-button {
     color: #00BCD4 !important;
 }
 
-/* Flex centering */
-.flex-centered {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/* Header bar styling */
 .full-width-header {
     background-color: #00BCD4;
     width: 100%;
@@ -297,7 +249,6 @@ body {
     margin-bottom: 0;
 }
 
-/* Hero styling */
 .hero.is-primary {
     background-color: #00BCD4;
 }
@@ -319,7 +270,6 @@ body {
     font-weight: 300;
 }
 
-/* Feature card styling */
 .feature-card {
     height: 100%;
     display: flex;
@@ -331,12 +281,17 @@ body {
     z-index: 1024;
 }
 
-/* Modal styling */
+#aboutButton {
+    background: none !important;
+    border: none !important;
+    text-decoration: none !important;
+    box-shadow: none !important;
+}
+
 .modal-card {
     max-width: 600px;
 }
 
-/* Styles for when the about modal is active */
 .is-modal-active .bottom-nav,
 .is-modal-active .add-fab,
 .is-modal-active .about-button-icon {

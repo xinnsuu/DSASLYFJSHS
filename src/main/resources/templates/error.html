@@ -1,13 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Error Page</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-    <link rel="stylesheet" href="/css/common.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-</head>
+<head th:replace="~{fragments/head :: head('Error Page')}"></head>
 <body>
+    <th:block th:insert="~{fragments/navbar :: navbar}"></th:block>
     <section class="section">
         <div class="container">
             <div class="columns is-centered">
@@ -54,28 +49,6 @@
         </div>
     </section>
     
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const header = document.getElementById('errorAccordionHeader');
-            const content = document.getElementById('errorAccordionContent');
-            const icon = document.getElementById('accordionIcon');
-            
-            if (header && content && icon) {
-                header.addEventListener('click', function() {
-                    if (content.classList.contains('is-hidden')) {
-                        content.classList.remove('is-hidden');
-                        content.classList.add('is-visible');
-                        icon.classList.remove('fa-chevron-down');
-                        icon.classList.add('fa-chevron-up');
-                    } else {
-                        content.classList.remove('is-visible');
-                        content.classList.add('is-hidden');
-                        icon.classList.remove('fa-chevron-up');
-                        icon.classList.add('fa-chevron-down');
-                    }
-                });
-            }
-        });
-    </script>
+    <script src="/js/error.js"></script>
 </body>
 </html>

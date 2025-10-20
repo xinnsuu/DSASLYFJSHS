@@ -1,15 +1,13 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const accordion = document.getElementById('errorAccordion');
-    if (accordion) {
-        const header = accordion.querySelector('.accordion-header');
-        const content = accordion.querySelector('.accordion-content');
-        
+    const header = document.getElementById('errorAccordionHeader');
+    const content = document.getElementById('errorAccordionContent');
+    const icon = document.getElementById('accordionIcon');
+    
+    if (header && content && icon) {
         header.addEventListener('click', function() {
-            accordion.classList.toggle('active');
-            const arrow = header.querySelector('span:last-child');
-            if (arrow) {
-                arrow.textContent = accordion.classList.contains('active') ? '▲' : '▼';
-            }
+            content.classList.toggle('is-hidden');
+            icon.classList.toggle('fa-chevron-down');
+            icon.classList.toggle('fa-chevron-up');
         });
     }
 });

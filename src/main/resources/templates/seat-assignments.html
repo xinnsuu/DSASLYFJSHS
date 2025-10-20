@@ -1,21 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Seat Assignments</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-    <link rel="stylesheet" href="/css/common.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <script src="/js/common.js" defer></script>
-</head>
+<head th:replace="~{fragments/head :: head('Seat Assignments')}"></head>
 <body>
     <th:block th:insert="~{fragments/navbar :: navbar}"></th:block>
-
     <th:block th:insert="~{fragments/header :: header('Seat Assignments')}"></th:block>
-
-    <section class="section" style="padding-top: 0.5rem; padding-bottom: 0.5rem;">
+    <section class="section py-small">
         <div class="container">
-
             <div class="columns is-centered">
                 <div class="column is-10">
                     <div class="box mb-4">
@@ -26,15 +16,14 @@
                                     <select id="sectionSelector" name="sectionId">
                                         <option value="">-- Select a Section --</option>
                                         <option th:each="section : ${sections}"
-                                                th:value="${section.id}"
-                                                th:text="${section.sectionName}"
-                                                th:selected="${param.sectionId != null and #strings.equals(param.sectionId, section.id)}"></option>
+                                        th:value="${section.id}"
+                                        th:text="${section.sectionName}"
+                                        th:selected="${param.sectionId != null and #strings.equals(param.sectionId, section.id)}"></option>
                                     </select>
                                 </div>
                             </div>
                         </form>
                     </div>
-
                     <div class="table-container" th:if="${assignments != null}">
                         <table class="table is-fullwidth is-striped is-hoverable">
                             <thead>
@@ -60,17 +49,9 @@
                 </div>
             </div>
         </div>
-        
-        <!-- Floating Add Button -->
-        <a th:href="@{/assignments/new(sectionId=${param.sectionId})}" class="button is-primary is-rounded add-fab" th:if="${param.sectionId != null}">
-            <span class="icon">
-                <i class="fas fa-plus"></i>
-            </span>
-        </a>
-        
+        <th:block th:if="${param.sectionId != null}" th:insert="~{fragments/fab :: fab(@{/assignments/new(sectionId=${param.sectionId})})}"></th:block>
         <th:block th:insert="~{fragments/about-modal :: aboutModal}"></th:block>
     </section>
-    
     <script src="/js/section.js"></script>
 </body>
 </html>

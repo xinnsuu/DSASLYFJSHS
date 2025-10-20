@@ -1,76 +1,65 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Academic Structure Form</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-    <link rel="stylesheet" href="/css/common.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <script src="/js/common.js" defer></script>
-</head>
+<head th:replace="~{fragments/head :: head('Section Form')}"></head>
 <body>
     <th:block th:insert="~{fragments/navbar :: navbar}"></th:block>
-    <th:block th:insert="~{fragments/header :: header(${structure.id == null} ? 'Add Academic Structure' : 'Edit Academic Structure')}"></th:block>
-
-    <section class="section" style="padding-top: 0.5rem; padding-bottom: 0.5rem;">
+    <th:block th:insert="~{fragments/header :: header(${structure.id == null} ? 'Add Section' : 'Edit Section')}"></th:block>
+    <section class="section py-small">
         <div class="container">
-
             <div class="columns is-centered">
                 <div class="column is-6">
                     <form th:action="${structure.id == null} ? @{/sections/new} : @{/sections/edit/{id}(id=${structure.id})}" 
-                          th:object="${structure}" method="post" class="box">
-                        <input type="hidden" th:field="*{id}"/>
-
-                        <div class="field">
-                            <label class="label">Grade Level:</label>
-                            <div class="control">
-                                <div class="select is-fullwidth">
-                                    <select th:field="*{gradeLevel}">
-                                        <option th:each="level : ${T(com.xinnsuu.seatflow.model.enums.GradeLevel).values()}"
-                                                th:value="${level}" th:text="${level.displayValue}"></option>
-                                    </select>
-                                </div>
+                    th:object="${structure}" method="post" class="box">
+                    <input type="hidden" th:field="*{id}"/>
+                    <div class="field">
+                        <label class="label">Grade Level:</label>
+                        <div class="control">
+                            <div class="select is-fullwidth">
+                                <select th:field="*{gradeLevel}">
+                                    <option th:each="level : ${T(com.xinnsuu.seatflow.model.enums.GradeLevel).values()}"
+                                    th:value="${level}" th:text="${level.displayValue}"></option>
+                                </select>
                             </div>
                         </div>
-
-                        <div class="field">
-                            <label class="label">Strand:</label>
-                            <div class="control">
-                                <div class="select is-fullwidth">
-                                    <select th:field="*{strand}">
-                                        <option th:each="s : ${T(com.xinnsuu.seatflow.model.enums.Strand).values()}"
-                                                th:value="${s}" th:text="${s}"></option>
-                                    </select>
-                                </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">Strand:</label>
+                        <div class="control">
+                            <div class="select is-fullwidth">
+                                <select th:field="*{strand}">
+                                    <option th:each="s : ${T(com.xinnsuu.seatflow.model.enums.Strand).values()}"
+                                    th:value="${s}" th:text="${s}"></option>
+                                </select>
                             </div>
                         </div>
-
-                        <div class="field">
-                            <label class="label">Section Name:</label>
-                            <div class="control">
-                                <input class="input" type="text" th:field="*{sectionName}" placeholder="Enter or search section name..." required />
-                            </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">Section Name:</label>
+                        <div class="control">
+                            <input class="input" type="text" th:field="*{sectionName}" placeholder="Enter or search section name..." required />
                         </div>
-
-                        <div class="field is-grouped">
-                            <div class="control">
-                                <button type="submit" class="button is-primary is-medium">
-                                    <span class="icon">
-                                        <i class="fas fa-save"></i>
-                                    </span>
-                                    <span>Save</span>
-                                </button>
-                            </div>
-                            <div class="control">
-                                <a th:href="@{/sections}" class="button is-light is-medium">Cancel</a>
-                            </div>
+                    </div>
+                    <div class="field is-grouped">
+                        <div class="control">
+                            <button type="submit" class="button is-primary">
+                                <span class="icon">
+                                    <i class="fas fa-save"></i>
+                                </span>
+                                <span>Save</span>
+                            </button>
                         </div>
-                    </form>
-                </div>
+                        <div th:if="${structure.id != null}" class="control">
+                            <a th:href="@{/sections/delete/{id}(id=${structure.id})}" class="button is-danger is-light">Delete</a>
+                        </div>
+                        <div class="control">
+                            <a th:href="@{/sections}" class="button is-light">Cancel</a>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
-        
-        <th:block th:insert="~{fragments/about-modal :: aboutModal}"></th:block>
-    </section>
+    </div>
+    <th:block th:insert="~{fragments/about-modal :: aboutModal}"></th:block>
+</section>
 </body>
 </html>
