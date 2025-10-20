@@ -1,54 +1,43 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments/head :: head('Error Page')}"></head>
+<head th:replace="~{fragments/head :: head('Error')}"></head>
 <body>
-    <th:block th:insert="~{fragments/navbar :: navbar}"></th:block>
+    <th:block th:insert="~{fragments/header :: header('Error')}"></th:block>
+    
     <section class="section">
         <div class="container">
             <div class="columns is-centered">
                 <div class="column is-6">
-                    <div class="box">
-                        <div class="content has-text-centered">
-                            <h1 class="title is-1" th:text="${status}?: '500'" style="color: #dc3545;">500</h1>
-                            <h2 class="title is-3">Oops! Something went wrong</h2>
-                            <p th:text="${error}?: 'Internal Server Error'">Internal Server Error</p>
+                    <div class="box has-text-centered">
+                        <div class="is-size-1 mb-4" style="color: #dc3545;">
+                            <i class="fas fa-exclamation-triangle"></i>
                         </div>
+                        <h1 class="title is-2" th:text="${error}?: 'An error occurred'">An error occurred</h1>
+                        <p class="subtitle is-5">Something went wrong, but we're working on fixing it.</p>
                         
-                        <div class="notification is-warning">
-                            <div class="level">
-                                <div class="level-left">
-                                    <h4 class="subtitle">View Error Details</h4>
-                                </div>
-                                <div class="level-right">
-                                    <button class="button" id="errorAccordionHeader">
-                                        <span class="icon">
-                                            <i class="fas fa-chevron-down" id="accordionIcon"></i>
-                                        </span>
-                                    </button>
-                                </div>
+                        <div class="mt-6">
+                            <div class="buttons is-centered">
+                                <a href="/" class="button is-primary is-medium">
+                                    <span class="icon">
+                                        <i class="fas fa-home"></i>
+                                    </span>
+                                    <span>Go Home</span>
+                                </a>
+                                <button class="button is-light is-medium" onclick="window.history.back();">
+                                    <span class="icon">
+                                        <i class="fas fa-arrow-left"></i>
+                                    </span>
+                                    <span>Go Back</span>
+                                </button>
                             </div>
-                            <div id="errorAccordionContent" class="is-hidden">
-                                <div class="content" style="white-space: pre-wrap; font-family: monospace; background-color: #f8f9fa; padding: 1rem; border-radius: 4px; max-height: 300px; overflow-y: auto;" th:text="${message}?: 'No additional error information provided.'">
-                                    No additional error information provided.
-                                </div>
-                                <div class="content" style="white-space: pre-wrap; font-family: monospace; background-color: #f8f9fa; padding: 1rem; border-radius: 4px; max-height: 300px; overflow-y: auto;" th:if="${trace}" th:text="${trace}?: ''"></div>
-                            </div>
-                        </div>
-                        
-                        <div class="has-text-centered">
-                            <a href="/" class="button is-primary">
-                                <span class="icon">
-                                    <i class="fas fa-home"></i>
-                                </span>
-                                <span>Go Back Home</span>
-                            </a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    
-    <script src="/js/error.js"></script>
+
+    <!-- Error details section -->
+    <th:block th:insert="~{fragments/navbar :: navbar}"></th:block>
 </body>
 </html>
