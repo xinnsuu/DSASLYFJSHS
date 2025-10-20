@@ -6,16 +6,14 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link rel="stylesheet" href="/css/common.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="/js/common.js" defer></script>
 </head>
 <body>
     <th:block th:insert="~{fragments/navbar :: navbar}"></th:block>
     
-    <section class="section">
+    <section class="section" style="padding-top: 0.5rem; padding-bottom: 0.5rem;">
         <div class="container">
-            <!-- Header in a card -->
-            <div class="box mb-5">
-                <h1 class="title is-3">Seat Assignments</h1>
-            </div>
+            <th:block th:insert="~{fragments/header :: header('Seat Assignments')}"></th:block>
 
             <div class="columns is-centered">
                 <div class="column is-10">
@@ -74,9 +72,7 @@
             </span>
         </a>
         
-        <script src="/js/section.js"></script>
+        <th:block th:insert="~{fragments/about-modal :: aboutModal}"></th:block>
     </section>
-    
-    <script src="/js/section.js"></script>
 </body>
 </html>

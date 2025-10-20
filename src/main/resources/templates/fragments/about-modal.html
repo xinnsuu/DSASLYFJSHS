@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="aboutModal">
+    <!-- About Modal -->
+    <div id="aboutModal" class="modal">
+        <div class="modal-background" onclick="closeAboutModal()"></div>
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <p class="modal-card-title">About Seatflow</p>
+                <button class="delete" aria-label="close" onclick="closeAboutModal()"></button>
+            </header>
+            <section class="modal-card-body">
+                <p>Seatflow is a classroom seat assignment management system designed to help teachers easily organize and manage their students' seating arrangements.</p>
+                <br>
+                <p>Version: 1.0.0</p>
+                <p>Developed by: Xinnsuu</p>
+                <p>Licensed under: MIT License</p>
+            </section>
+            <footer class="modal-card-foot">
+                <button class="button" onclick="closeAboutModal()">Close</button>
+            </footer>
+        </div>
+    </div>
+</th:block>
+</html>

@@ -10,19 +10,26 @@
 <body>
     <th:block th:insert="~{fragments/navbar :: navbar}"></th:block>
     
+    <!-- Hero section -->
+    <section class="hero is-primary">
+        <div class="hero-body">
+            <div class="container has-text-centered">
+                <h1 class="title is-1">Seatflow</h1>
+                <p class="subtitle is-4">Effortless classroom seat assignment management</p>
+                <button id="aboutButton" class="button is-text" style="color: white; font-size: 1.5rem; margin-top: 1rem;">
+                    <i class="fas fa-info-circle"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+    
     <section class="section">
         <div class="container">
-            <!-- Header in a card -->
-            <div class="box has-text-centered mb-6">
-                <h1 class="title is-3">Seatflow</h1>
-                <p class="subtitle is-5">Effortless classroom seat assignment management</p>
-            </div>
-            
             <div class="columns is-multiline is-centered">
                 <div class="column is-one-quarter-desktop is-half-tablet">
                     <a href="/sections" class="box has-text-centered">
                         <div class="content">
-                            <div class="is-size-1 has-text-primary mb-3">
+                            <div class="is-size-1 mb-3" style="color: #00BCD4;">
                                 <i class="fas fa-chalkboard-teacher"></i>
                             </div>
                             <h2 class="title is-4">Sections</h2>
@@ -34,7 +41,7 @@
                 <div class="column is-one-quarter-desktop is-half-tablet">
                     <a href="/layouts" class="box has-text-centered">
                         <div class="content">
-                            <div class="is-size-1 has-text-primary mb-3">
+                            <div class="is-size-1 mb-3" style="color: #00BCD4;">
                                 <i class="fas fa-th-large"></i>
                             </div>
                             <h2 class="title is-4">Layouts</h2>
@@ -46,7 +53,7 @@
                 <div class="column is-one-quarter-desktop is-half-tablet">
                     <a href="/students" class="box has-text-centered">
                         <div class="content">
-                            <div class="is-size-1 has-text-primary mb-3">
+                            <div class="is-size-1 mb-3" style="color: #00BCD4;">
                                 <i class="fas fa-user-graduate"></i>
                             </div>
                             <h2 class="title is-4">Students</h2>
@@ -58,7 +65,7 @@
                 <div class="column is-one-quarter-desktop is-half-tablet">
                     <a href="/assignments" class="box has-text-centered">
                         <div class="content">
-                            <div class="is-size-1 has-text-primary mb-3">
+                            <div class="is-size-1 mb-3" style="color: #00BCD4;">
                                 <i class="fas fa-chair"></i>
                             </div>
                             <h2 class="title is-4">Assignments</h2>
@@ -68,6 +75,33 @@
                 </div>
             </div>
         </div>
+        
+        <th:block th:insert="~{fragments/about-modal :: aboutModal}"></th:block>
     </section>
+        <th:block th:insert="~{fragments/about-modal :: aboutModal}"></th:block>
+    </section>
+    
+        <th:block th:insert="~{fragments/about-modal :: aboutModal}"></th:block>
+    </section>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add event listener to the about button
+            const aboutButton = document.getElementById('aboutButton');
+            if (aboutButton) {
+                aboutButton.addEventListener('click', function() {
+                    document.getElementById('aboutModal').classList.add('is-active');
+                });
+            }
+            
+            // Add event listener for the modal close functionality
+            const modalCloseButtons = document.querySelectorAll('.modal .delete, .modal-background');
+            modalCloseButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    document.getElementById('aboutModal').classList.remove('is-active');
+                });
+            });
+        });
+    </script>
 </body>
 </html>
