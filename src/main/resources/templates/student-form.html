@@ -10,10 +10,11 @@
 </head>
 <body>
     <th:block th:insert="~{fragments/navbar :: navbar}"></th:block>
-    
+
+    <th:block th:insert="~{fragments/header :: header(${student.studentId == null} ? 'Add Student' : 'Edit Student')}"></th:block>
+
     <section class="section" style="padding-top: 0.5rem; padding-bottom: 0.5rem;">
         <div class="container">
-            <th:block th:insert="~{fragments/header :: header(${student.studentId == null} ? 'Add Student' : 'Edit Student')}"></th:block>
 
             <div class="columns is-centered">
                 <div class="column is-6">

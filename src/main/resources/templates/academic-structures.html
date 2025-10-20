@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Academic Structures</title>
+    <title>Sections</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link rel="stylesheet" href="/css/common.css">
@@ -10,10 +10,11 @@
 </head>
 <body>
     <th:block th:insert="~{fragments/navbar :: navbar}"></th:block>
+
+    <th:block th:insert="~{fragments/header :: header('Academic Structures')}"></th:block>
     
     <section class="section" style="padding-top: 0.5rem; padding-bottom: 0.5rem;">
         <div class="container">
-            <th:block th:insert="~{fragments/header :: header('Academic Structures')}"></th:block>
 
             <div class="columns is-centered">
                 <div class="column is-10">

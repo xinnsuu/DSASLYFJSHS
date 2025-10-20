@@ -281,8 +281,8 @@ body {
 /* Header bar styling */
 .full-width-header {
     background-color: #00BCD4;
-    margin-bottom: 2rem;
     width: 100%;
+    margin-bottom: 1.5rem;
 }
 
 .header-content {
@@ -294,6 +294,7 @@ body {
 
 .full-width-header .title {
     color: white;
+    margin-bottom: 0;
 }
 
 /* Hero styling */
