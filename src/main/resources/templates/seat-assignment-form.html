@@ -75,7 +75,7 @@
                             <a th:href="@{/assignments/delete/{id}(id=${assignment.id},sectionId=${sectionId})}" class="button is-danger is-light">Delete</a>
                         </div>
                         <div class="control">
-                            <a th:href="@{/assignments?sectionId=${sectionId}}" class="button is-light">Cancel</a>
+                            <a th:href="@{/assignments(sectionId=${sectionId})}" class="button is-light">Cancel</a>
                         </div>
                     </div>
                 </form>
