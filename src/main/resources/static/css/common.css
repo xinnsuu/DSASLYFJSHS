@@ -303,6 +303,21 @@ body {
     font-weight: 300;
 }
 
+/* Feature card styling */
+.feature-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.about-button-icon {
+    position: fixed;
+    top: 1rem;
+    right: 1.5rem;
+    z-index: 1024;
+}
+
 /* Modal styling */
 .modal-card {
     max-width: 600px;

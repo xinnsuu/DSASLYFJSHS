@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Seatflow - Landing Page</title>
+    <title>Seatflow - Home Page</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link rel="stylesheet" href="/css/common.css">
@@ -21,22 +21,20 @@
         </div>
     </section>
 
-    <div class="container" style="padding: 2rem 0;">
-        <div class="is-flex is-justify-content-flex-end">
-            <button id="aboutButton" class="button is-info is-outlined">
-                <span class="icon">
-                    <i class="fas fa-info-circle"></i>
-                </span>
-                <span>About</span>
-            </button>
-        </div>
-    </div>
-    
+
     <section class="section">
         <div class="container">
+            <div class="columns is-centered">
+                <div class="column is-full">
+                    <div class="notification is-primary" style="background-color: #00BCD4;">
+                        <p>This project is still under development. You can follow the progress on <a href="https://github.com/xinnsuu/DSASLYFJSHS/" style="color: white; text-decoration: underline;">GitHub</a>.</p>
+                    </div>
+                </div>
+            </div>
+
             <div class="columns is-multiline is-centered">
                 <div class="column is-one-quarter-desktop is-half-tablet">
-                    <a href="/sections" class="box has-text-centered">
+                    <a href="/sections" class="box has-text-centered feature-card">
                         <div class="content">
                             <div class="is-size-1 mb-3" style="color: #00BCD4;">
                                 <i class="fas fa-chalkboard-teacher"></i>
@@ -48,7 +46,7 @@
                 </div>
                 
                 <div class="column is-one-quarter-desktop is-half-tablet">
-                    <a href="/layouts" class="box has-text-centered">
+                    <a href="/layouts" class="box has-text-centered feature-card">
                         <div class="content">
                             <div class="is-size-1 mb-3" style="color: #00BCD4;">
                                 <i class="fas fa-th-large"></i>
@@ -60,7 +58,7 @@
                 </div>
                 
                 <div class="column is-one-quarter-desktop is-half-tablet">
-                    <a href="/students" class="box has-text-centered">
+                    <a href="/students" class="box has-text-centered feature-card">
                         <div class="content">
                             <div class="is-size-1 mb-3" style="color: #00BCD4;">
                                 <i class="fas fa-user-graduate"></i>
@@ -72,7 +70,7 @@
                 </div>
                 
                 <div class="column is-one-quarter-desktop is-half-tablet">
-                    <a href="/assignments" class="box has-text-centered">
+                    <a href="/assignments" class="box has-text-centered feature-card">
                         <div class="content">
                             <div class="is-size-1 mb-3" style="color: #00BCD4;">
                                 <i class="fas fa-chair"></i>
@@ -87,25 +85,5 @@
         
         <th:block th:insert="~{fragments/about-modal :: aboutModal}"></th:block>
     </section>
-    
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Add event listener to the about button
-            const aboutButton = document.getElementById('aboutButton');
-            if (aboutButton) {
-                aboutButton.addEventListener('click', function() {
-                    document.getElementById('aboutModal').classList.add('is-active');
-                });
-            }
-            
-            // Add event listener for the modal close functionality
-            const modalCloseButtons = document.querySelectorAll('.modal .delete, .modal-background');
-            modalCloseButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    document.getElementById('aboutModal').classList.remove('is-active');
-                });
-            });
-        });
-    </script>
 </body>
 </html>
