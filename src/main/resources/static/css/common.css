@@ -334,5 +334,24 @@ body {
 /* Modal styling */
 .modal-card {
     max-width: 600px;
-    margin: 0 auto;
+}
+
+/* Styles for when the about modal is active */
+.is-modal-active .bottom-nav,
+.is-modal-active .add-fab,
+.is-modal-active .about-button-icon {
+    filter: brightness(0.7);
+}
+
+@media (max-width: 768px) {
+    .modal-card {
+        width: calc(100% - 40px);
+        margin: 0 20px;
+    }
+}
+
+@media (min-width: 769px) {
+    .modal-card {
+        margin: 0 auto;
+    }
 }

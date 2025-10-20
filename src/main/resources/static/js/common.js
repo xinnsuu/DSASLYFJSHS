@@ -1,17 +1,22 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Add event listener to the about button
     const aboutButton = document.getElementById('aboutButton');
-    if (aboutButton) {
+    const aboutModal = document.getElementById('aboutModal');
+    const htmlElement = document.documentElement;
+
+    if (aboutButton && aboutModal) {
         aboutButton.addEventListener('click', function() {
-            document.getElementById('aboutModal').classList.add('is-active');
+            aboutModal.classList.add('is-active');
+            htmlElement.classList.add('is-modal-active');
         });
     }
     
-    // Add event listener for the modal close functionality
     const modalCloseButtons = document.querySelectorAll('.modal .delete, .modal-background');
     modalCloseButtons.forEach(button => {
         button.addEventListener('click', function() {
-            document.getElementById('aboutModal').classList.remove('is-active');
+            if (aboutModal) {
+                aboutModal.classList.remove('is-active');
+                htmlElement.classList.remove('is-modal-active');
+            }
         });
     });
 });
