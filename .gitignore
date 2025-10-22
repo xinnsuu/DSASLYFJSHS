@@ -35,6 +35,6 @@ build/
 ### Project ###
 *.mv.db
 *.db
-*dev*
 *LYFJSHS*
 data/
+src/main/resources/application-dev.properties

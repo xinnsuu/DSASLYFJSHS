@@ -1,0 +1,7 @@
+# ===================================================================
+# DATASOURCE CONFIGURATION
+# ===================================================================
+
+spring.datasource.url=jdbc:h2:mem:seatflow
+spring.datasource.username=sa
+spring.datasource.password=
